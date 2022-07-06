@@ -1,0 +1,9 @@
+include ':app'
+include ':jzbPush2'
+include ':jzbIMLongPress'
+include ':jzbOfficePreview'
+include ':commonResource'
+
+//include ':utlib'
+include ':plugInModule'
+include ':plugintestapk'

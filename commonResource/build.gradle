@@ -1,0 +1,53 @@
+apply plugin: 'com.android.library'
+
+android {
+
+    compileSdkVersion 30
+
+    defaultConfig {
+        minSdkVersion 15
+        targetSdkVersion 28
+        versionCode 1
+        versionName "1.0"
+        //64K
+        multiDexEnabled true
+        ndk {
+            abiFilters "armeabi-v7a"//只支持v7a
+        }
+    }
+    buildTypes {
+        release {
+            minifyEnabled false
+        }
+    }
+    sourceSets {
+        main {
+            //jni库的调用会到资源文件夹下libs里面找so文件
+            jniLibs.srcDirs = ['libs']
+        }
+    }
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
+
+}
+
+repositories{
+    flatDir{
+        dirs 'libs'
+    }
+}
+configurations {
+    cleanedAnnotations
+    // implementation.exclude group: 'org.jetbrains' , module:'annotations'
+    implementation.exclude group: 'com.intellij' , module:'annotations'
+}
+dependencies {
+
+    implementation fileTree(dir: 'libs', include: ['*.jar','*.aar'])
+    compileOnly files('../app/libs/apiEngine v1.1.0.jar')
+    compileOnly 'com.android.support:support-v4:26.0.0'
+    implementation project(':jzbOfficePreview')
+    implementation project(':jzbPush2')
+}

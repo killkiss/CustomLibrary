@@ -1,0 +1,68 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="maximum-scale=1.0, minimum-scale=1.0, user-scalable=0, initial-scale=1.0, width=device-width"/>
+    <meta name="format-detection" content="telephone=no, email=no, date=no, address=no">
+    <title>WinA</title>
+    <link rel="stylesheet" type="text/css" href="css/api.css"/>
+    <link rel="stylesheet" type="text/css" href="css/box.css"/>
+    <script type="text/javascript" src="script/public.js"></script>
+    <style>
+    	p{
+    		color:#999;
+    		padding:5px;
+    	}
+
+    </style>
+    <script type="text/javascript">
+	    
+		var uzmoduledemo = null;
+		var scrollPicture = null;
+		function chatTools(){
+			api.openWin({
+               name: 'index_frm_chat_tools',
+               url: 'index_frm_chat_tools.html',
+             });
+		}
+
+		function audioToVideo(){
+			api.openWin({
+               name: 'index_frm_media',
+               url: 'index_frm_media.html',
+             });
+		}
+
+
+		function ysy(){
+			api.openWin({
+               name: 'index_frm_ysy',
+               url: 'index_frm_ysy.html',
+             });
+		}
+
+		function plugIn(){
+			api.openWin({
+               name: 'index_frm_plug_in',
+               url: 'index_frm_plug_in.html',
+             });
+		}
+    </script>
+</head>
+<body>
+<div id="wrap">
+    <div id="main">
+        <br>
+        <div style="font-size:0.8em;">获取值:</div>
+        <div id="activity_result"
+             style="width:100%;word-wrap: break-word;word-break: normal;"></div>
+        <br><br>
+        <div class="clickbtn" tapmode="active" onclick="chatTools()">聊天功能模块</div>
+        <div class="clickbtn" tapmode="active" onclick="audioToVideo()">音视频模块</div>
+        <div class="clickbtn" tapmode="active" onclick="ysy()">视频模块</div>
+        <div class="clickbtn" tapmode="active" onclick="plugIn()">插件式模块</div>
+    </div>
+</div>
+</body>
+</html>

@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="com.jzb.pluginmoudle">
+
+    <application>
+        <!-- 用于承载APK Activity页面的方法-->
+        <activity android:name=".main.PlugInFakerActivity"
+            android:screenOrientation="portrait"/>
+
+    </application>
+</manifest>

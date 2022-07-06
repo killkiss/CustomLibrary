@@ -1,0 +1,11 @@
+<component name="libraryTable">
+  <library name="Gradle: C./Users/JZB/Desktop/AndroidProject/Library/CustomLibrary/commonResource/libs/availableupdate-6.1.0.302.aar">
+    <CLASSES>
+      <root url="jar://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/65bb8b6cd2750d36eddb125fd9319cb1/availableupdate-6.1.0.302/jars/classes.jar!/" />
+      <root url="file://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/65bb8b6cd2750d36eddb125fd9319cb1/availableupdate-6.1.0.302/res" />
+      <root url="file://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/65bb8b6cd2750d36eddb125fd9319cb1/availableupdate-6.1.0.302/AndroidManifest.xml" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES />
+  </library>
+</component>

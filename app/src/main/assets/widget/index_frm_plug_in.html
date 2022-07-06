@@ -1,0 +1,70 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="maximum-scale=1.0, minimum-scale=1.0, user-scalable=0, initial-scale=1.0, width=device-width"/>
+    <meta name="format-detection" content="telephone=no, email=no, date=no, address=no">
+    <title>WinC</title>
+    <link rel="stylesheet" type="text/css" href="css/api.css" />
+    <link rel="stylesheet" type="text/css" href="css/box.css" />
+    <script type="text/javascript" src="script/public.js"></script>
+    <style>
+    	p{
+    		color:#999;
+    		padding:5px;
+    	}
+    </style>
+	<script type="text/javascript">
+	    apiready = function(){
+
+	    };
+	    function loadAPK(){
+			var obj = api.require('jzbPlugIn');
+			obj.loadTestModule({
+			    useTestModule:true,
+<!--			    apiType:"method",-->
+<!--			    apiName:"showData"-->
+                apiType:"activity",
+			    apiName:"TestActivity"
+			}, function(ret,err){
+				alert(JSON.stringify(ret));
+			});
+		}
+
+		function checkUpData(){
+        // ----------------------安卓原生模块热更新配置-------------------------------------
+        // 测试插件化模块名字
+        var MODULE_TEST = 'testModule';
+        // 测试插件化模块使用资源前缀 范围 0x02 到 0x7e 唯一性
+        var MODULE_TEST_PACKAGE_ID = '0x70';
+        // 测试插件化模块当前版本信息
+        var MODULE_TEST_VERSION = '0.0.2';
+        // 测试插件化模块下载地址
+        var MODULE_TEST_DOWNLOAD_URL = '';
+				var androidPlugIn = api.require('jzbPlugIn');
+        var MODULE_INFO = [
+            {
+                MODULE_NAME: MODULE_TEST,
+                MODULE_VERSION: MODULE_TEST_VERSION,
+                MODULE_DOWNLOAD_URL: MODULE_TEST_DOWNLOAD_URL,
+                MODULE_PACKAGE_ID: MODULE_TEST_PACKAGE_ID,
+            },
+        ];
+	    androidPlugIn.checkModuleVersion({
+            MODULE_INFO: MODULE_INFO,
+            upgradeMessage: '测试模块更新版本至0.0.2',
+            silentUpdate: false,
+	    });
+        }
+	</script>
+</head>
+<body>
+    <div id="wrap">
+        <div id='header'>
+            <div class="clickbtn" tapmode="active" onclick="loadAPK()" >加载指定apk 方法</div>
+            <div class="clickbtn" tapmode="active" onclick="checkUpData()" >检测更新</div>
+        </div>
+        </div>
+    </div>
+</body>
+</html>

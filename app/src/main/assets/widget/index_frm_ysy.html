@@ -1,0 +1,527 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="maximum-scale=1.0, minimum-scale=1.0, user-scalable=0, initial-scale=1.0, width=device-width"/>
+    <meta name="format-detection" content="telephone=no, email=no, date=no, address=no">
+    <title>WinA</title>
+    <link rel="stylesheet" type="text/css" href="css/api.css"/>
+    <link rel="stylesheet" type="text/css" href="css/box.css"/>
+    <script type="text/javascript" src="script/public.js"></script>
+    <style>
+    	p{
+    		color:#999;
+    		padding:5px;
+    	}
+
+    </style>
+    <script type="text/javascript">
+		var jzbYs = null;
+		var desencryption = null;
+		var jzbyushi = null;
+		var moduleDemo = null;
+		var offset = 1;
+		var limits = 15;
+		//是否还有数据
+		var hasData = true;
+		var GET_VIDEO_MONITOR_DATE = "http://apivideo.jizhibao.com.cn/videoManager/getVideoInfoApp";
+<!--		var GET_VIDEO_MONITOR_DATE = "http://192.168.0.185:8079/videoManager/getVideoInfoApp";-->
+		var GET_ATTEND_PERSON_LIST_URL = "http://base.api.jizhibao.com.cn/Api/getMyAuthedUserList";
+
+        var API_BASE = 'http://api.jizhibao.club/';
+        var GET_VIDEO_MONITOR_DATE = API_BASE + "o/video/videoManager/getVideoInfoApp";
+        var GET_VIDEO_TAKEPHOTO_URL = API_BASE + "o/video/videoManager/capture";
+		var GET_VIDEO_SAVEPHOTO_URL = API_BASE + "o/video/videoManager/saveCapture";
+		var VIDEO_DEPT_LIST_APP = API_BASE + 'o/video/videoDept/listApp';
+		var GET_DEPART_LIST_API = API_BASE + "org/depart/list";
+        var GET_USER_LIST_BY_DEPTID = API_BASE + "org/user/list";
+        var PROJECT_CONTRACT_LIST_BRIEF = API_BASE + "project/contract/listBrief";//获取项目下合同（单位）列表
+        var SEARCH_USER_LIST = API_BASE + "o/video/searchUserList";//获取项目合同（单位）下的部门下人员列表
+		apiready = function(){
+	    	jzbYs = api.require('jzbYs');
+	    	jzbYs.setUrlInfo({
+	    	    GET_VIDEO_MONITOR_DATE:GET_VIDEO_MONITOR_DATE,
+                GET_VIDEO_TAKEPHOTO_URL:GET_VIDEO_TAKEPHOTO_URL,
+                GET_VIDEO_SAVEPHOTO_URL:GET_VIDEO_SAVEPHOTO_URL,
+                GET_ATTEND_PERSON_LIST_URL:GET_ATTEND_PERSON_LIST_URL,
+                VIDEO_DEPT_LIST_APP:VIDEO_DEPT_LIST_APP,
+                GET_DEPART_LIST_API:GET_DEPART_LIST_API,
+                GET_USER_LIST_BY_DEPTID:GET_USER_LIST_BY_DEPTID,
+                PROJECT_CONTRACT_LIST_BRIEF:PROJECT_CONTRACT_LIST_BRIEF,
+                SEARCH_USER_LIST:SEARCH_USER_LIST,
+            });
+            jzbYs.setUserIdProjIdComId({
+                user_id:"CD89BF9F-1BCB-4869-B56F-5F1F79E5953C",
+                user_name:"测试",
+                com_id:"D8165C8A-13AC-4C4D-9C9C-48AE3FFA6831",
+                com_name:"物联网演示账号（公路）",
+<!--                proj_id: "1c47c5a0-b201-4833-94fe-16e5185ae473",-->
+                need_person:"no",
+            });
+<!--            jzbYs.setUserIdProjIdComId({-->
+<!--                user_id:"88853256-c4bd-4801-9006-7d8e9fe0053d",-->
+<!--                user_name:"19983513154",-->
+<!--                proj_id:"161d65ad-d9f4-491a-bfd1-b08cb89eae86",//-->
+<!--                com_id:"4FF35449-5578-40C0-AD43-9527DA1E37E5"//-->
+<!--            });-->
+	    	addPauseAndResume();
+
+	    	desencryption = api.require('desencryption');
+	    	jzbyushi = api.require('jzbyushi');
+	    	jzbyushi.init({
+	    	    T2UPayload : 200
+	    	});
+	    	moduleDemo = api.require('moduleDemo');
+	    	var wifi = moduleDemo.getWifi();
+	    	console.log('wifiInfo'+JSON.stringify(wifi));
+	    	moduleDemo.setBadgeNum({
+	    	    package : "com.apicloud.pkg.sdk",
+	    	    activity : "com.uzmap.pkg.EntranceActivity",
+	    	    badgenumber : 0
+	    	});
+
+            <!--var param = {msg:"Hello APICloud!"};-->
+	    	<!--uzmoduledemo.catchToJs(param, function(ret, err){-->
+	        	<!--alert(JSON.stringify(ret));-->
+	        <!--});-->
+	        //监听名为"fromNative"的事件，该事件来自Native
+            api.addEventListener({
+                name:'snap'
+            }, function(ret, err) {
+                alert('ChannelName: ' + ret.value.ChannelName
+                +'\n DeviceSerial: '+ret.value.DeviceSerial
+                +'\n AccessToken: '+ret.value.AccessToken);
+            });
+	    }
+
+	    function alertCont() {
+            alert('contract');
+        }
+	    function alertDevice() {
+            alert('设备管理');
+        }
+        function tabClick(index) {
+            alert('index='+index);
+        }
+        function sendCapture() {
+            alert('sendCapture');
+        }
+
+		function openYuShi(){
+            var param = {
+                cloudUsername: "13269631384",
+                cloudPassword: "auqfymiqpl11",
+                serverUrl: "ezcloud.uniview.com",
+                DeviceSerial: "Device00001",
+                ChannelName: "提升泵房",
+                ChannelNo: 17
+            };
+            jzbyushi.openYuShi(param);
+		}
+		function openYuShi2(){
+            var param = {
+                cloudUsername: "13269631384",
+                cloudPassword: "auqfymiqpl11",
+                serverUrl: "ezcloud.uniview.com",
+                DeviceSerial: "Device00001",
+                ChannelName: "提升泵房",
+                ChannelNo: 18
+            };
+            jzbyushi.openYuShi(param);
+		}
+
+		function BMshowAlert(){
+			var param = {msg:"Hello APICloud!"};
+			api.require('ModuleB').showAlert(param);
+		}
+
+		function AMaddView(){
+			var param = {x:20,y:20,w:200,h:200};
+	        api.require('ModuleA').addView(param);
+		}
+
+		function startA(){
+			var param = {appKey:"e2a6402afe58419d9b25ed05208c1fab",
+			<!--Id:"12,D12888255,e0d4b279f36b40f18a1059ed319f3562,at.dip29ncg5dj2oypy2k4c2mtocojbeaw3-8z4djtqwe6-0pg28dm-ltgwhrmpy,2,e2a6402afe58419d9b25ed05208c1fab,060a4ac263320a5cd50bcdb258bbbddd,",-->
+			DeviceSerial:"D91664759",
+			ChannelName:"T3-1试验室力学室",
+			ChannelNo:"5",
+			<!--url:"http://paasalihlsgw.lechange.cn:9001/LCO/5C079E4PAZ15197/3/1/20190617165750/dev_20190617165749_9zf9d6kq99756zs9.m3u8",-->
+			AccessToken:"at.8r1dgvhsdpfrtayu9gq89jpoanj689sz-9rhju7dtd4-05t2sn5-v5ngeviwa",
+			com_id:"279fafed-6aea-4412-aa36-0a4bce4c1092"};
+			jzbYs.setContToNull(function(ret, err){
+               alert(ret.status);
+           });
+	        jzbYs.open(param);
+		}
+
+		function startActivity(){
+			var param = {
+			IS_JG:false,
+			cont_name:"渭南城投能源天然气库EPC",
+			proj_id:"161d65ad-d9f4-491a-bfd1-b08cb89eae86",
+			cont_id:"c9384367-8bac-464d-98fe-03860b5d9ce8",
+			user_id:"88853256-c4bd-4801-9006-7d8e9fe0053d",
+			user_name:"19983513154",
+			com_id:"4ff35449-5578-40c0-ad43-9527da1e37e5"};
+	        jzbYs.openVideoMonitor(param);
+		}
+
+		function startMonitor() {
+		    offset = 1;
+		    getMonitordata();
+		}
+
+		function getMonitordata() {
+//			console.log(GET_VIDEO_MONITOR_DATE+'?limit='+limits+'&cont_id=e7bd11ee-27f0-4bf9-8e80-b3f3c551c272&offset=1');
+			api.showProgress({
+				title : '加载中... '
+			});
+			api.ajax({
+				url : GET_VIDEO_MONITOR_DATE,
+				method : 'post',
+				report : false,
+				cache : true,
+				data : {
+					values : {
+						limit : limits,
+						offset : offset,
+						cont_id :'07a418ae-7dc8-4dac-a0be-97815b0e1898'
+					}
+				}
+			}, function(ret, err) {
+				api.hideProgress();
+//				console.log('视频监控=='+JSON.stringify(ret));
+				if (ret) {
+					if (ret.rCode == 0) {
+						if (ret.data.length > 0 && uniqueSameModel(ret.data).length > 0) {
+						    if (ret.data.length >= limits) {
+						        hasData = true;
+						    }
+						    if (offset == 1) {
+                                var param = {
+                                    x : 0,
+                                    y : 65,
+                                    w : 0,
+                                    h : 0,
+                                    response : JSON.stringify(ret),
+                                    cont_id:"ef7d78ea-1760-45a4-b79a-df947e8e164c",
+                                    cont_name:"请选择",
+                                    limits: limits,
+                                    winName: api.winName,
+                                    frameName: api.frameName,
+                                    script: "alertCont();",
+                                    tab1Script: 'tabClick(1);',
+                                    tab2Script: 'tabClick(2);',
+                                    tab3Script: 'tabClick(3);',
+                                    openDevice: "alertDevice();",
+                                    rightBtn: "设备管理",
+                                    close: "",
+                                    getData: true,
+                                };
+                                if (ret.data[0].is265 == 0) {
+                                    jzbYs.openVideoList(param);
+                                } else {
+                                    jzbYs.openH265VideoList(param);
+                                }
+							} else {
+							    jzbYs.addVideoInfoList({
+							        response : JSON.stringify(ret)
+							    });
+							}
+							offset++;
+							jzbYs.setOnScrollEndListener(function(ret, err) {
+                                if (hasData) {
+                                    hasData = false;
+                                    getMonitordata();
+                                }
+                            });
+						}
+					} else {
+
+					}
+				} else {
+
+				}
+			});
+		}
+
+		//企业视频监控
+		function startEnterpriseMonitor() {
+			var params = {
+				comId: 'd8165c8a-13ac-4c4d-9c9c-48ae3ffa6831',
+				deptId: '',
+				deptName: '测试部',
+				keyword: '',
+				page: 1,
+				size: 500,
+				status: '',
+				type: '',
+			};
+			api.showProgress({
+				title: '加载中... ',
+			});
+			console.log(`企业视频监控=${VIDEO_DEPT_LIST_APP} -||requestBody||- ${JSON.stringify(params)}`);
+			api.ajax({
+				url : VIDEO_DEPT_LIST_APP,
+				method : 'post',
+				headers : {
+                    'Content-Type': 'application/json;charset=utf-8',
+                },
+				data : {
+					body : params
+				}
+			}, function(ret, err) {
+				api.hideProgress();
+				console.log('企业视频监控-ret==' + JSON.stringify(ret));
+				console.log('企业视频监控-err==' + JSON.stringify(err));
+				if (ret) {
+					if (ret.code == 30000) {
+						if (ret.data.length > 0) {
+						    if (ret.data.length >= limits) {
+						        hasData = true;
+						    }
+							if (params.page == 1) {
+                                var param = {
+                                    x : 0,
+                                    y : 92,
+                                    w : 0,
+                                    h : 477,
+                                    response : JSON.stringify(ret),
+                                    limits: limits,
+                                    winName: api.winName,
+                                    frameName: api.frameName,
+                                    eventFunction: 'sendCapture();',
+                                    script: "alertCont();",
+                                    tab1Script: 'tabClick(1);',
+                                    tab2Script: 'tabClick(2);',
+                                    close: "",
+                                    getData: true,
+                                };
+                                if (ret.data[0].is265 == 0) {
+                                    jzbYs.openEnterpriseVideoList(param);
+                                } else {
+                                    jzbYs.openEnterpriseH265VideoList(param);
+                                }
+							} else {
+							    jzbYs.addEnterpriseVideoList({
+							        response : JSON.stringify(ret)
+							    });
+							}
+							offset = params.page + 1;
+							jzbYs.setOnScrollEndListener(function(ret, err) {
+                                if (hasData) {
+                                    hasData = false;
+                                    getMonitordata();
+                                }
+                            });
+						} else {
+							hasData = false;
+						}
+					} else {
+					}
+				} else {
+				}
+			});
+		}
+
+		//合并DeviceSerial、ChannelNo相同的视频
+		function uniqueSameModel(arr) {
+			var hash = [];
+			var length = arr.length;
+			for (var i = length - 1; i >= 0; i--) {
+				for (var j = i - 1; j >= 0; j--) {
+					if (arr[i].deviceSerial === arr[j].deviceSerial && arr[i].channelNo === arr[j].channelNo && arr[i].videostatus === arr[j].videostatus) {
+						i--;
+						j = i;
+					}
+				}
+				if (1 == arr[i].videostatus) hash.unshift(arr[i]);
+			}
+			return hash;
+		}
+
+		function addPauseAndResume() {
+		    api.addEventListener({
+                name:'pause'
+            }, function(ret, err){
+                jzbYs.onPause({});
+            });
+            api.addEventListener({
+                name:'resume'
+            }, function(ret, err){
+                jzbYs.onResume({});
+            });
+		}
+
+		function closeList() {
+		    jzbYs.removeListView({});
+		}
+
+		function startMain(){
+		    var param = {appKey:"e2a6402afe58419d9b25ed05208c1fab",
+			Id:"1,F79822820,e0d4b279f36b40f18a1059ed319f3562,at.dip29ncg5dj2oypy2k4c2mtocojbeaw3-8z4djtqwe6-0pg28dm-ltgwhrmpy,2,e2a6402afe58419d9b25ed05208c1fab,060a4ac263320a5cd50bcdb258bbbddd,",
+			DeviceSerial:"F79822820",
+			ChannelName:"计支宝-研发部-过道",
+			ChannelNo:"6",
+			AccessToken:"at.cwzq11m8a37qdoli7vibzyfgdvxzvicj-7sm0tcdgnc-1bw6lhv-f5c7ascvu",
+			com_id:"279fafed-6aea-4412-aa36-0a4bce4c1092"};
+		    jzbYs.open(param);
+		}
+
+		function CMstartActivity(){
+			var param = {appParam:"Hello APICloud!"};
+	        api.require('ModuleC').startActivity(param);
+		}
+
+		function CMstartActivityForResult(){
+			var param = {appParam:"Hello APICloud!"};
+			var resultCallback = function(ret, err){
+				document.getElementById("activity_result").innerHTML = JSON.stringify(ret);
+			}
+	        api.require('ModuleC').startActivityForResult(param, resultCallback);
+		}
+
+		function vibrate(){
+			var mill = document.getElementById("vibrate").value;
+			var param = {milliseconds:mill};
+	        jzbYs.vibrate(param);
+		}
+
+		function stopVibrate(){
+	        jzbYs.stopVibrate();
+		}
+
+		function addView(){
+			var param = {x:20,y:20,w:200,h:200};
+	        jzbYs.addView(param);
+		}
+
+		function removeView(){
+
+	        jzbYs.removeView();
+		}
+
+		function testopen(){
+			var sw = document.getElementById("sw").value;
+			scrollPicture.open({
+				x:0,
+				y:30,
+				w:sw,
+				h:200,
+				fixedOn:'index_frm', //固定在名为'index_frm'的frame上
+				//fixed:false //跟随网页滚动
+			}, function(ret, err){
+				alert(JSON.stringify(ret));
+			});
+		}
+
+		function testclose(){
+			scrollPicture.close();
+		}
+
+		function toRefrash(){
+			api.refreshHeaderLoading();
+		}
+
+		function stopRefrash(){
+			api.refreshHeaderLoadDone();
+		}
+
+		function setRefrashHeader(){
+			api.setCustomRefreshHeaderInfo({
+			    arrowImage: 'widget://image/refresh.png'
+			}, function( ret, err ){
+			    ;
+			});
+			alert('设置成功，再进入下拉刷新状态看看图片是否变啦！');
+		}
+
+		var sModule = null;
+
+		function syncInterface(what){
+			if(!sModule){
+				sModule = api.require('syncModule');
+			}
+			var ret = null;
+			if(0 == what){
+				ret = sModule.int();
+			}else if(1 == what){
+				ret = sModule.float();
+			}else if(2 == what){
+				ret = sModule.boolean();
+			}else if(3 == what){
+				ret = sModule.string();
+			}else if(4 == what){
+				ret = sModule.json();
+			}else if(5 == what){
+				ret = sModule.jsonay();
+			}else{
+				return;
+			}
+			if(typeof ret === 'object'){
+				alert("获取结果为对象！\n结果：" + JSON.stringify(ret));
+			}else{
+				alert("获取结果为基本数据!\n结果：" + ret);
+			}
+		}
+
+    </script>
+</head>
+<body>
+<div id="wrap">
+    <div id="main">
+        <div onclick="closeList()">关闭List</div>
+        <br>
+        <div class='itemtitle'>1、宇视视频监控</div>
+        <div class="clickbtn" tapmode="active" onclick="openYuShi()">宇视视频</div>
+        <div class="clickbtn" tapmode="active" onclick="openYuShi2()">宇视视频2</div>
+        <div class='itemtitle'>2、启动Activity</div>
+        <div class="clickbtn" tapmode="active" onclick="startMonitor()">startMonitor</div>
+        <div class="clickbtn" tapmode="active" onclick="startMain()">startMain</div>
+        <div class="clickbtn" tapmode="active" onclick="startEnterpriseMonitor()">企业视频</div>
+        <div style="font-size:0.8em;">acticity返回值:</div>
+        <div id="activity_result"
+             style="width:100%;word-wrap: break-word;word-break: normal;"></div>
+        <br><br>
+        <div class='itemtitle'>3、调用设备震动</div>
+        <lable>设置震动时间，单位：毫秒</lable>
+        <br>
+        <input type="number" id="vibrate" value="20000"/>
+        <div class="clickbtn" tapmode="active" onclick="vibrate()">开始震动</div>
+        <div class="clickbtn" tapmode="active" onclick="stopVibrate()">停止震动</div>
+        <div class='itemtitle'>4、自定义UI模块</div>
+        <div class="clickbtn" tapmode="active" onclick="addView()">添加自定义View到当前Window</div>
+        <div class="clickbtn" tapmode="active" onclick="removeView()">从当前Window移除自定义View</div>
+        <div class='itemtitle'>5、简单ScrollPicture模块</div>
+        <lable>输入ScrollPicture的宽度</lable>
+        <br>
+        <input type="number" id="sw" value="300"/>
+        <div class="clickbtn" tapmode="active" onclick="testopen()">打开ScrollPicture</div>
+        <div class="clickbtn" tapmode="active" onclick="testclose()">移除ScrollPicture</div>
+        <div class='itemtitle'>6、自定义简单的下拉刷新模块</div>
+        <div class="clickbtn" tapmode="active" onclick="toRefrash()">直接进入下拉刷新</div>
+        <div class="clickbtn" tapmode="active" onclick="stopRefrash()">退出下拉刷新</div>
+        <div class="clickbtn" tapmode="active" onclick="setRefrashHeader()">设置自定义下拉刷新模块</div>
+        <div class='itemtitle'>7、同步接口</div>
+        <div class="clickbtn" tapmode="active" onclick="syncInterface(0)">同步获取整数</div>
+        <div class="clickbtn" tapmode="active" onclick="syncInterface(1)">同步获取小数</div>
+        <div class="clickbtn" tapmode="active" onclick="syncInterface(2)">同步获取bool值</div>
+        <div class="clickbtn" tapmode="active" onclick="syncInterface(3)">同步获取字符串</div>
+        <div class="clickbtn" tapmode="active" onclick="syncInterface(4)">同步获取JSON对象</div>
+        <div class="clickbtn" tapmode="active" onclick="syncInterface(5)">同步获取JSON数组对象</div>
+        <div class='itemtitle'>8、模块B弹出对话框</div>
+        <div class="clickbtn" tapmode="active" onclick="BMshowAlert()">点击弹出</div>
+        <div class='itemtitle'>9、模块A自定义UI模块</div>
+        <div class="clickbtn" tapmode="active" onclick="AMaddView()">添加自定义View到当前Window</div>
+        <div class='itemtitle'>10、模块C启动Activity</div>
+        <div class="clickbtn" tapmode="active" onclick="CMstartActivity()">startActivity</div>
+        <div class="clickbtn" tapmode="active" onclick="CMstartActivityForResult()">
+            startActivityForResult
+        </div>
+        <br>
+    </div>
+</div>
+</body>
+</html>

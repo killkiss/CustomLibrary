@@ -1,0 +1,101 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<module external.linked.project.id=":commonResource:androidTest" external.linked.project.path="$MODULE_DIR$/../../../commonResource" external.root.project.path="$MODULE_DIR$/../../.." external.system.id="GRADLE" external.system.module.type="sourceSet" type="JAVA_MODULE" version="4">
+  <component name="FacetManager">
+    <facet type="android" name="Android">
+      <configuration>
+        <option name="SELECTED_BUILD_VARIANT" value="debug" />
+        <option name="ASSEMBLE_TASK_NAME" value="assembleDebug" />
+        <option name="COMPILE_JAVA_TASK_NAME" value="compileDebugSources" />
+        <afterSyncTasks>
+          <task>generateDebugSources</task>
+        </afterSyncTasks>
+        <option name="ALLOW_USER_CONFIGURATION" value="false" />
+        <option name="MANIFEST_FILE_RELATIVE_PATH" value="/src/main/AndroidManifest.xml" />
+        <option name="RES_FOLDER_RELATIVE_PATH" value="/src/main/res" />
+        <option name="RES_FOLDERS_RELATIVE_PATH" value="file://$MODULE_DIR$/../../../commonResource/src/main/res;file://$MODULE_DIR$/../../../commonResource/src/debug/res;file://$MODULE_DIR$/../../../commonResource/build/generated/res/rs/debug" />
+        <option name="TEST_RES_FOLDERS_RELATIVE_PATH" value="file://$MODULE_DIR$/../../../commonResource/src/androidTest/res;file://$MODULE_DIR$/../../../commonResource/src/androidTestDebug/res;file://$MODULE_DIR$/../../../commonResource/build/generated/res/rs/androidTest/debug" />
+        <option name="ASSETS_FOLDER_RELATIVE_PATH" value="/src/main/assets" />
+        <option name="PROJECT_TYPE" value="1" />
+      </configuration>
+    </facet>
+  </component>
+  <component name="NewModuleRootManager" LANGUAGE_LEVEL="JDK_1_8" inherit-compiler-output="true">
+    <exclude-output />
+    <content url="file://$MODULE_DIR$/../../../commonResource/build/generated/aidl_source_output_dir/debugAndroidTest/out" />
+    <content url="file://$MODULE_DIR$/../../../commonResource/build/generated/ap_generated_sources/debugAndroidTest/out" />
+    <content url="file://$MODULE_DIR$/../../../commonResource/build/generated/renderscript_source_output_dir/debugAndroidTest/out" />
+    <content url="file://$MODULE_DIR$/../../../commonResource/build/generated/res/rs/androidTest/debug" />
+    <content url="file://$MODULE_DIR$/../../../commonResource/build/generated/source/buildConfig/androidTest/debug" />
+    <content url="file://$MODULE_DIR$/../../../commonResource/src/androidTest" />
+    <content url="file://$MODULE_DIR$/../../../commonResource/src/androidTestDebug" />
+    <orderEntry type="jdk" jdkName="Android API 30 Platform" jdkType="Android SDK" />
+    <orderEntry type="sourceFolder" forTests="false" />
+    <orderEntry type="module" module-name="CustomLibrary.jzbOfficePreview.main" scope="TEST" />
+    <orderEntry type="module" module-name="CustomLibrary.jzbPush2.main" scope="TEST" />
+    <orderEntry type="library" scope="TEST" name="Gradle: C./Users/JZB/Desktop/AndroidProject/Library/CustomLibrary/commonResource/libs/annotation-1.1.0.jar" level="project" />
+    <orderEntry type="library" scope="TEST" name="Gradle: C./Users/JZB/Desktop/AndroidProject/Library/CustomLibrary/commonResource/libs/collection-1.1.0.jar" level="project" />
+    <orderEntry type="library" scope="TEST" name="Gradle: C./Users/JZB/Desktop/AndroidProject/Library/CustomLibrary/commonResource/libs/commons-codec-1.6.jar" level="project" />
+    <orderEntry type="library" scope="TEST" name="Gradle: C./Users/JZB/Desktop/AndroidProject/Library/CustomLibrary/commonResource/libs/constraint-layout-solver-2.0.4.jar" level="project" />
+    <orderEntry type="library" scope="TEST" name="Gradle: C./Users/JZB/Desktop/AndroidProject/Library/CustomLibrary/commonResource/libs/core-1.1.0.jar" level="project" />
+    <orderEntry type="library" scope="TEST" name="Gradle: C./Users/JZB/Desktop/AndroidProject/Library/CustomLibrary/commonResource/libs/fragment-1.1.0.jar" level="project" />
+    <orderEntry type="library" scope="TEST" name="Gradle: C./Users/JZB/Desktop/AndroidProject/Library/CustomLibrary/commonResource/libs/glide-3.8.0.jar" level="project" />
+    <orderEntry type="library" scope="TEST" name="Gradle: C./Users/JZB/Desktop/AndroidProject/Library/CustomLibrary/commonResource/libs/gsyVideoPlayer-base-7.1.2.jar" level="project" />
+    <orderEntry type="library" scope="TEST" name="Gradle: C./Users/JZB/Desktop/AndroidProject/Library/CustomLibrary/commonResource/libs/ijkplayer-java-0.8.8.jar" level="project" />
+    <orderEntry type="library" scope="TEST" name="Gradle: C./Users/JZB/Desktop/AndroidProject/Library/CustomLibrary/commonResource/libs/jetified-activity-1.0.0.jar" level="project" />
+    <orderEntry type="library" scope="TEST" name="Gradle: C./Users/JZB/Desktop/AndroidProject/Library/CustomLibrary/commonResource/libs/jetified-savedstate-1.0.0.jar" level="project" />
+    <orderEntry type="library" scope="TEST" name="Gradle: C./Users/JZB/Desktop/AndroidProject/Library/CustomLibrary/commonResource/libs/lifecycle-common-2.1.0.jar" level="project" />
+    <orderEntry type="library" scope="TEST" name="Gradle: C./Users/JZB/Desktop/AndroidProject/Library/CustomLibrary/commonResource/libs/lifecycle-runtime-2.1.0.jar" level="project" />
+    <orderEntry type="library" scope="TEST" name="Gradle: C./Users/JZB/Desktop/AndroidProject/Library/CustomLibrary/commonResource/libs/lifecycle-viewmodel-2.1.0.jar" level="project" />
+    <orderEntry type="library" scope="TEST" name="Gradle: C./Users/JZB/Desktop/AndroidProject/Library/CustomLibrary/commonResource/libs/pinyin4j-2.5.0.jar" level="project" />
+    <orderEntry type="library" scope="TEST" name="Gradle: C./Users/JZB/Desktop/AndroidProject/Library/CustomLibrary/commonResource/libs/reactive-streams-1.0.1.jar" level="project" />
+    <orderEntry type="library" scope="TEST" name="Gradle: C./Users/JZB/Desktop/AndroidProject/Library/CustomLibrary/commonResource/libs/rxjava-2.1.5.jar" level="project" />
+    <orderEntry type="library" scope="TEST" name="Gradle: C./Users/JZB/Desktop/AndroidProject/Library/CustomLibrary/commonResource/libs/tbs_sdk_thirdapp_v4.3.0.299_44199.jar" level="project" />
+    <orderEntry type="library" scope="TEST" name="Gradle: C./Users/JZB/Desktop/AndroidProject/Library/CustomLibrary/commonResource/libs/tpns-baseapi-sdk-1.3.3.3.jar" level="project" />
+    <orderEntry type="library" scope="TEST" name="Gradle: C./Users/JZB/Desktop/AndroidProject/Library/CustomLibrary/commonResource/libs/tpns-core-sdk-1.3.3.3.jar" level="project" />
+    <orderEntry type="library" scope="TEST" name="Gradle: C./Users/JZB/Desktop/AndroidProject/Library/CustomLibrary/commonResource/libs/tpns-honor-1.3.3.3.jar" level="project" />
+    <orderEntry type="library" scope="TEST" name="Gradle: C./Users/JZB/Desktop/AndroidProject/Library/CustomLibrary/commonResource/libs/tpns-huaweiv5-1.3.3.3.jar" level="project" />
+    <orderEntry type="library" scope="TEST" name="Gradle: C./Users/JZB/Desktop/AndroidProject/Library/CustomLibrary/commonResource/libs/tpns-inmsg-sdk-1.3.3.3.jar" level="project" />
+    <orderEntry type="library" scope="TEST" name="Gradle: C./Users/JZB/Desktop/AndroidProject/Library/CustomLibrary/commonResource/libs/tpns-meizu-1.3.3.3.jar" level="project" />
+    <orderEntry type="library" scope="TEST" name="Gradle: C./Users/JZB/Desktop/AndroidProject/Library/CustomLibrary/commonResource/libs/tpns-mqttchannel-sdk-1.3.3.3.jar" level="project" />
+    <orderEntry type="library" scope="TEST" name="Gradle: C./Users/JZB/Desktop/AndroidProject/Library/CustomLibrary/commonResource/libs/tpns-mqttv3-sdk-1.3.3.3.jar" level="project" />
+    <orderEntry type="library" scope="TEST" name="Gradle: C./Users/JZB/Desktop/AndroidProject/Library/CustomLibrary/commonResource/libs/tpns-oppo-1.3.3.3.jar" level="project" />
+    <orderEntry type="library" scope="TEST" name="Gradle: C./Users/JZB/Desktop/AndroidProject/Library/CustomLibrary/commonResource/libs/tpns-vivo-1.3.3.3.jar" level="project" />
+    <orderEntry type="library" scope="TEST" name="Gradle: C./Users/JZB/Desktop/AndroidProject/Library/CustomLibrary/commonResource/libs/tpns-xiaomi-1.3.3.3.jar" level="project" />
+    <orderEntry type="library" scope="TEST" name="Gradle: C./Users/JZB/Desktop/AndroidProject/Library/CustomLibrary/commonResource/libs/universal-image-loader-1.9.5.jar" level="project" />
+    <orderEntry type="library" scope="TEST" name="Gradle: C./Users/JZB/Desktop/AndroidProject/Library/CustomLibrary/commonResource/libs/agconnect-core-1.5.0.300.aar" level="project" />
+    <orderEntry type="library" scope="TEST" name="Gradle: C./Users/JZB/Desktop/AndroidProject/Library/CustomLibrary/commonResource/libs/animated-vector-drawable-26.0.0.aar" level="project" />
+    <orderEntry type="library" scope="TEST" name="Gradle: C./Users/JZB/Desktop/AndroidProject/Library/CustomLibrary/commonResource/libs/appcompat-v7-26.0.0.aar" level="project" />
+    <orderEntry type="library" scope="TEST" name="Gradle: C./Users/JZB/Desktop/AndroidProject/Library/CustomLibrary/commonResource/libs/availableupdate-6.1.0.302.aar" level="project" />
+    <orderEntry type="library" scope="TEST" name="Gradle: C./Users/JZB/Desktop/AndroidProject/Library/CustomLibrary/commonResource/libs/base-6.1.0.302.aar" level="project" />
+    <orderEntry type="library" scope="TEST" name="Gradle: C./Users/JZB/Desktop/AndroidProject/Library/CustomLibrary/commonResource/libs/circleimageview-3.1.0.aar" level="project" />
+    <orderEntry type="library" scope="TEST" name="Gradle: C./Users/JZB/Desktop/AndroidProject/Library/CustomLibrary/commonResource/libs/componentverifysdk-11.2.1.301.aar" level="project" />
+    <orderEntry type="library" scope="TEST" name="Gradle: C./Users/JZB/Desktop/AndroidProject/Library/CustomLibrary/commonResource/libs/constraint-layout-2.0.4.aar" level="project" />
+    <orderEntry type="library" scope="TEST" name="Gradle: C./Users/JZB/Desktop/AndroidProject/Library/CustomLibrary/commonResource/libs/design-26.0.0.aar" level="project" />
+    <orderEntry type="library" scope="TEST" name="Gradle: C./Users/JZB/Desktop/AndroidProject/Library/CustomLibrary/commonResource/libs/device-6.1.0.302.aar" level="project" />
+    <orderEntry type="library" scope="TEST" name="Gradle: C./Users/JZB/Desktop/AndroidProject/Library/CustomLibrary/commonResource/libs/hatool-6.1.0.302.aar" level="project" />
+    <orderEntry type="library" scope="TEST" name="Gradle: C./Users/JZB/Desktop/AndroidProject/Library/CustomLibrary/commonResource/libs/imsdk-plus-5.9.1872.aar" level="project" />
+    <orderEntry type="library" scope="TEST" name="Gradle: C./Users/JZB/Desktop/AndroidProject/Library/CustomLibrary/commonResource/libs/LiteAVSDK_TRTC_9.9.0.11821.aar" level="project" />
+    <orderEntry type="library" scope="TEST" name="Gradle: C./Users/JZB/Desktop/AndroidProject/Library/CustomLibrary/commonResource/libs/log-6.1.0.302.aar" level="project" />
+    <orderEntry type="library" scope="TEST" name="Gradle: C./Users/JZB/Desktop/AndroidProject/Library/CustomLibrary/commonResource/libs/network-common-5.0.4.300.aar" level="project" />
+    <orderEntry type="library" scope="TEST" name="Gradle: C./Users/JZB/Desktop/AndroidProject/Library/CustomLibrary/commonResource/libs/network-framework-compat-5.0.4.300.aar" level="project" />
+    <orderEntry type="library" scope="TEST" name="Gradle: C./Users/JZB/Desktop/AndroidProject/Library/CustomLibrary/commonResource/libs/network-grs-5.0.4.300.aar" level="project" />
+    <orderEntry type="library" scope="TEST" name="Gradle: C./Users/JZB/Desktop/AndroidProject/Library/CustomLibrary/commonResource/libs/opendevice-5.1.1.307.aar" level="project" />
+    <orderEntry type="library" scope="TEST" name="Gradle: C./Users/JZB/Desktop/AndroidProject/Library/CustomLibrary/commonResource/libs/push-6.1.0.300.aar" level="project" />
+    <orderEntry type="library" scope="TEST" name="Gradle: C./Users/JZB/Desktop/AndroidProject/Library/CustomLibrary/commonResource/libs/recyclerview-v7-26.0.0.aar" level="project" />
+    <orderEntry type="library" scope="TEST" name="Gradle: C./Users/JZB/Desktop/AndroidProject/Library/CustomLibrary/commonResource/libs/rxandroid-2.0.1.aar" level="project" />
+    <orderEntry type="library" scope="TEST" name="Gradle: C./Users/JZB/Desktop/AndroidProject/Library/CustomLibrary/commonResource/libs/security-base-1.1.5.306.aar" level="project" />
+    <orderEntry type="library" scope="TEST" name="Gradle: C./Users/JZB/Desktop/AndroidProject/Library/CustomLibrary/commonResource/libs/security-encrypt-1.1.5.306.aar" level="project" />
+    <orderEntry type="library" scope="TEST" name="Gradle: C./Users/JZB/Desktop/AndroidProject/Library/CustomLibrary/commonResource/libs/security-ssl-1.1.5.306.aar" level="project" />
+    <orderEntry type="library" scope="TEST" name="Gradle: C./Users/JZB/Desktop/AndroidProject/Library/CustomLibrary/commonResource/libs/stats-6.1.0.302.aar" level="project" />
+    <orderEntry type="library" scope="TEST" name="Gradle: C./Users/JZB/Desktop/AndroidProject/Library/CustomLibrary/commonResource/libs/support-vector-drawable-26.0.0.aar" level="project" />
+    <orderEntry type="library" scope="TEST" name="Gradle: C./Users/JZB/Desktop/AndroidProject/Library/CustomLibrary/commonResource/libs/tasks-1.4.1.300.aar" level="project" />
+    <orderEntry type="library" scope="TEST" name="Gradle: C./Users/JZB/Desktop/AndroidProject/Library/CustomLibrary/commonResource/libs/transition-26.0.0.aar" level="project" />
+    <orderEntry type="library" scope="TEST" name="Gradle: C./Users/JZB/Desktop/AndroidProject/Library/CustomLibrary/commonResource/libs/tuicore-1.0.5.aar" level="project" />
+    <orderEntry type="library" scope="TEST" name="Gradle: C./Users/JZB/Desktop/AndroidProject/Library/CustomLibrary/commonResource/libs/ui-6.1.0.302.aar" level="project" />
+    <orderEntry type="library" scope="TEST" name="Gradle: C./Users/JZB/Desktop/AndroidProject/Library/CustomLibrary/commonResource/libs/update-3.0.4.300.aar" level="project" />
+    <orderEntry type="library" scope="TEST" name="Gradle: C./Users/JZB/Desktop/AndroidProject/Library/CustomLibrary/commonResource/libs/utilcode-1.25.9.aar" level="project" />
+    <orderEntry type="library" scope="TEST" name="Gradle: com.android.support:multidex-instrumentation:1.0.2@aar" level="project" />
+    <orderEntry type="library" scope="TEST" name="Gradle: com.android.support:multidex:1.0.2@aar" level="project" />
+  </component>
+  <component name="TestModuleProperties" production-module="CustomLibrary.commonResource.main" />
+</module>

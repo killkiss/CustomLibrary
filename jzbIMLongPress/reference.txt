@@ -1,0 +1,40 @@
+// IM聊天页面中长按聊天信息触发弹窗
+// centerX: 箭头x坐标点
+// centerY: 箭头y坐标点
+// height: 消息体整体高度
+// elemType:消息类型 // 类型3和7需要特殊处理
+// 点击事件回调返回type值 {"type":"***"}
+// 获取
+//{
+//    "name":"jzbIMLongPress",
+//    "class":"com.imLongPress.jzb.LongPressModule"
+//}
+var jzbIMLongPress = api.require('jzbIMLongPress');
+function jzbIMLongPressShow(x,y){
+    jzbIMLongPress.show({
+        style: {
+            cutLineColor:'#6A6A6A',
+            titleColor:'#CDCDCD'
+        },
+        centerX: $api.offset(el).l + $api.offset(el).w / 2,
+        centerY: $api.offset(el).t,
+        height: $api.offset(el).h,
+        elemType:elemType,
+        btnArray: [{
+            icon:'https:***',
+            title: '保存',
+            type:'save'
+        }]
+    }, function(ret, err) {
+        if (ret) {
+            alert(JSON.stringify(ret));
+        } else {
+            alert(JSON.stringify(err));
+        }
+    });
+}
+
+// IM聊天页面弹窗关闭
+function jzbIMLongPressClose(){
+    jzbIMLongPress.close({});
+}

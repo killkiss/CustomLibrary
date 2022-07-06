@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ProjectModuleManager">
+    <modules>
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/CustomLibrary.iml" filepath="$PROJECT_DIR$/.idea/modules/CustomLibrary.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/app/CustomLibrary.app.iml" filepath="$PROJECT_DIR$/.idea/modules/app/CustomLibrary.app.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/app/CustomLibrary.app.androidTest.iml" filepath="$PROJECT_DIR$/.idea/modules/app/CustomLibrary.app.androidTest.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/app/CustomLibrary.app.main.iml" filepath="$PROJECT_DIR$/.idea/modules/app/CustomLibrary.app.main.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/app/CustomLibrary.app.unitTest.iml" filepath="$PROJECT_DIR$/.idea/modules/app/CustomLibrary.app.unitTest.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/commonResource/CustomLibrary.commonResource.iml" filepath="$PROJECT_DIR$/.idea/modules/commonResource/CustomLibrary.commonResource.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/commonResource/CustomLibrary.commonResource.androidTest.iml" filepath="$PROJECT_DIR$/.idea/modules/commonResource/CustomLibrary.commonResource.androidTest.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/commonResource/CustomLibrary.commonResource.main.iml" filepath="$PROJECT_DIR$/.idea/modules/commonResource/CustomLibrary.commonResource.main.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/commonResource/CustomLibrary.commonResource.unitTest.iml" filepath="$PROJECT_DIR$/.idea/modules/commonResource/CustomLibrary.commonResource.unitTest.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/jzbChatBox/CustomLibrary.jzbChatBox.iml" filepath="$PROJECT_DIR$/.idea/modules/jzbChatBox/CustomLibrary.jzbChatBox.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/jzbChatMedia/CustomLibrary.jzbChatMedia.iml" filepath="$PROJECT_DIR$/.idea/modules/jzbChatMedia/CustomLibrary.jzbChatMedia.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/jzbChatTools/CustomLibrary.jzbChatTools.iml" filepath="$PROJECT_DIR$/.idea/modules/jzbChatTools/CustomLibrary.jzbChatTools.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/jzbIMLongPress/CustomLibrary.jzbIMLongPress.iml" filepath="$PROJECT_DIR$/.idea/modules/jzbIMLongPress/CustomLibrary.jzbIMLongPress.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/jzbIMLongPress/CustomLibrary.jzbIMLongPress.androidTest.iml" filepath="$PROJECT_DIR$/.idea/modules/jzbIMLongPress/CustomLibrary.jzbIMLongPress.androidTest.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/jzbIMLongPress/CustomLibrary.jzbIMLongPress.main.iml" filepath="$PROJECT_DIR$/.idea/modules/jzbIMLongPress/CustomLibrary.jzbIMLongPress.main.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/jzbIMLongPress/CustomLibrary.jzbIMLongPress.unitTest.iml" filepath="$PROJECT_DIR$/.idea/modules/jzbIMLongPress/CustomLibrary.jzbIMLongPress.unitTest.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/jzbOfficePreview/CustomLibrary.jzbOfficePreview.iml" filepath="$PROJECT_DIR$/.idea/modules/jzbOfficePreview/CustomLibrary.jzbOfficePreview.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/jzbOfficePreview/CustomLibrary.jzbOfficePreview.androidTest.iml" filepath="$PROJECT_DIR$/.idea/modules/jzbOfficePreview/CustomLibrary.jzbOfficePreview.androidTest.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/jzbOfficePreview/CustomLibrary.jzbOfficePreview.main.iml" filepath="$PROJECT_DIR$/.idea/modules/jzbOfficePreview/CustomLibrary.jzbOfficePreview.main.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/jzbOfficePreview/CustomLibrary.jzbOfficePreview.unitTest.iml" filepath="$PROJECT_DIR$/.idea/modules/jzbOfficePreview/CustomLibrary.jzbOfficePreview.unitTest.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/jzbPush2/CustomLibrary.jzbPush2.iml" filepath="$PROJECT_DIR$/.idea/modules/jzbPush2/CustomLibrary.jzbPush2.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/jzbPush2/CustomLibrary.jzbPush2.androidTest.iml" filepath="$PROJECT_DIR$/.idea/modules/jzbPush2/CustomLibrary.jzbPush2.androidTest.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/jzbPush2/CustomLibrary.jzbPush2.main.iml" filepath="$PROJECT_DIR$/.idea/modules/jzbPush2/CustomLibrary.jzbPush2.main.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/jzbPush2/CustomLibrary.jzbPush2.unitTest.iml" filepath="$PROJECT_DIR$/.idea/modules/jzbPush2/CustomLibrary.jzbPush2.unitTest.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/jzbYs/CustomLibrary.jzbYs.iml" filepath="$PROJECT_DIR$/.idea/modules/jzbYs/CustomLibrary.jzbYs.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/jzbYuShi/CustomLibrary.jzbYuShi.iml" filepath="$PROJECT_DIR$/.idea/modules/jzbYuShi/CustomLibrary.jzbYuShi.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/plugInModule/CustomLibrary.plugInModule.iml" filepath="$PROJECT_DIR$/.idea/modules/plugInModule/CustomLibrary.plugInModule.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/plugInModule/CustomLibrary.plugInModule.androidTest.iml" filepath="$PROJECT_DIR$/.idea/modules/plugInModule/CustomLibrary.plugInModule.androidTest.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/plugInModule/CustomLibrary.plugInModule.main.iml" filepath="$PROJECT_DIR$/.idea/modules/plugInModule/CustomLibrary.plugInModule.main.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/plugInModule/CustomLibrary.plugInModule.unitTest.iml" filepath="$PROJECT_DIR$/.idea/modules/plugInModule/CustomLibrary.plugInModule.unitTest.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/plugintestapk/CustomLibrary.plugintestapk.iml" filepath="$PROJECT_DIR$/.idea/modules/plugintestapk/CustomLibrary.plugintestapk.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/plugintestapk/CustomLibrary.plugintestapk.androidTest.iml" filepath="$PROJECT_DIR$/.idea/modules/plugintestapk/CustomLibrary.plugintestapk.androidTest.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/plugintestapk/CustomLibrary.plugintestapk.main.iml" filepath="$PROJECT_DIR$/.idea/modules/plugintestapk/CustomLibrary.plugintestapk.main.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/plugintestapk/CustomLibrary.plugintestapk.unitTest.iml" filepath="$PROJECT_DIR$/.idea/modules/plugintestapk/CustomLibrary.plugintestapk.unitTest.iml" />
+    </modules>
+  </component>
+</project>

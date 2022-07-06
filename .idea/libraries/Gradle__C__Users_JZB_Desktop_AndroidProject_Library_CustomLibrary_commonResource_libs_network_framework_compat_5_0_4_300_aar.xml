@@ -1,0 +1,11 @@
+<component name="libraryTable">
+  <library name="Gradle: C./Users/JZB/Desktop/AndroidProject/Library/CustomLibrary/commonResource/libs/network-framework-compat-5.0.4.300.aar">
+    <CLASSES>
+      <root url="jar://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/a21929a20ffcadc9b2a79a4380f8236a/network-framework-compat-5.0.4.300/jars/classes.jar!/" />
+      <root url="file://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/a21929a20ffcadc9b2a79a4380f8236a/network-framework-compat-5.0.4.300/res" />
+      <root url="file://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/a21929a20ffcadc9b2a79a4380f8236a/network-framework-compat-5.0.4.300/AndroidManifest.xml" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES />
+  </library>
+</component>

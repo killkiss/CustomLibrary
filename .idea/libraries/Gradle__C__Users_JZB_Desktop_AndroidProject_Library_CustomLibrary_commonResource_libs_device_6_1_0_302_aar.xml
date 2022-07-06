@@ -1,0 +1,11 @@
+<component name="libraryTable">
+  <library name="Gradle: C./Users/JZB/Desktop/AndroidProject/Library/CustomLibrary/commonResource/libs/device-6.1.0.302.aar">
+    <CLASSES>
+      <root url="jar://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/1ca414ed8c1f626e1d66016108d23d5d/device-6.1.0.302/jars/classes.jar!/" />
+      <root url="file://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/1ca414ed8c1f626e1d66016108d23d5d/device-6.1.0.302/res" />
+      <root url="file://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/1ca414ed8c1f626e1d66016108d23d5d/device-6.1.0.302/AndroidManifest.xml" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES />
+  </library>
+</component>

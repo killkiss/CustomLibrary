@@ -1,0 +1,14 @@
+<component name="libraryTable">
+  <library name="Gradle: C./Users/JZB/Desktop/AndroidProject/Library/CustomLibrary/commonResource/libs/componentverifysdk-11.2.1.301.aar">
+    <ANNOTATIONS>
+      <root url="jar://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/31048139bf2f8e55b3499ad30544401a/componentverifysdk-11.2.1.301/annotations.zip!/" />
+    </ANNOTATIONS>
+    <CLASSES>
+      <root url="jar://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/31048139bf2f8e55b3499ad30544401a/componentverifysdk-11.2.1.301/jars/classes.jar!/" />
+      <root url="file://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/31048139bf2f8e55b3499ad30544401a/componentverifysdk-11.2.1.301/res" />
+      <root url="file://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/31048139bf2f8e55b3499ad30544401a/componentverifysdk-11.2.1.301/AndroidManifest.xml" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES />
+  </library>
+</component>
