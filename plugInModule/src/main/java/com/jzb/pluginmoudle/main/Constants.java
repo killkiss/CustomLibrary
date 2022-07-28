@@ -16,7 +16,8 @@ public class Constants {
 
     // 测试插件化模块名字
     public static final String MODULE_TEST = "testModule";
-    public static final String MODULE_TEST_APK = "plugInTest.apk";
+    public static final String MODULE_TEST_CONSTANTS = "com.jzb.plugintestapk.Constants";
+    public static final String MODULE_TEST_APK = "plugInTest.project";
     // 测试插件化模块使用资源前缀
     public static final String MODULE_TEST_PACKAGE_ID = "0x70";
 

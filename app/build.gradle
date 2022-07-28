@@ -64,10 +64,15 @@ repositories{
 
 dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
+    implementation project(':jzbChatTools')
+    implementation project(':jzbChatBox')
     implementation project(':jzbOfficePreview')
     implementation project(':jzbPush2')
     implementation project(':jzbIMLongPress')
     implementation project(':commonResource')
+    implementation project(':jzbChatMedia')
+    implementation project(':jzbYs')
+    implementation project(':jzbYuShi')
     implementation 'com.android.support:support-v4:26.0.0'
     implementation project(':plugInModule')
 //    implementation 'com.android.support:multidex:1.0.1'

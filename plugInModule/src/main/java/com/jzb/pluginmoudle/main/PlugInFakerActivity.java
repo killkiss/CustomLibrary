@@ -31,7 +31,7 @@ public class PlugInFakerActivity extends Activity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         // 文件名
-        String fileName = "plugInTest.apk";
+        String fileName = "plugInTest.project";
         // 获取测试模块插件位置
         File testPlugInPath = DexClassLoader.getAssetsCacheFile(this, fileName);
         handlerIntentData();
@@ -93,7 +93,6 @@ public class PlugInFakerActivity extends Activity {
                     return;
                 }
             }
-
         } catch (InvocationTargetException e) {
             Throwable t = e.getTargetException();// 获取目标异常
             L.e(t.getMessage());
@@ -175,7 +174,7 @@ public class PlugInFakerActivity extends Activity {
         if (intent == null) return;
         bundle = intent.getExtras();
         if (bundle != null) {
-            activityName = bundle.getString("apiName");
+            activityName = bundle.getString("className");
         }
     }
 }

@@ -5,6 +5,7 @@ import static com.fileopen.jzb.OfficeFileOpenModule.dip2px;
 import static com.fileopen.jzb.OfficeFileOpenModule.initX5Success;
 import static com.fileopen.jzb.OfficeFileOpenModule.isInitTBS;
 
+import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.DownloadManager;
@@ -18,7 +19,6 @@ import android.os.Bundle;
 import android.os.Environment;
 import android.os.Handler;
 import android.text.TextUtils;
-import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.LinearLayout;
@@ -31,7 +31,6 @@ import com.tencent.smtt.sdk.QbSdk;
 import com.tencent.smtt.sdk.TbsDownloader;
 import com.tencent.smtt.sdk.TbsListener;
 import com.tencent.smtt.sdk.TbsReaderView;
-import com.tencent.smtt.sdk.ValueCallback;
 
 import java.io.File;
 import java.io.FileInputStream;
@@ -50,6 +49,7 @@ import java.util.HashMap;
  * @version 1.0
  * @Description 基础文件类型预览view
  */
+@SuppressLint("SetTextI18n")
 public class OfficeFileOpenView extends RelativeLayout implements TbsListener {
 
     // 文件预览view
@@ -61,10 +61,10 @@ public class OfficeFileOpenView extends RelativeLayout implements TbsListener {
     private String coreDownLoadPath;
     private String coreInstallPath;
     private String fileName;
-    private boolean isLocalFile = true;
+    //    private boolean isLocalFile = true;
     private View viewHead;
     // 静态和在线安装状态切换
-    private boolean staticVersionChange = true;
+    private boolean CusServiceLoadMode = true;
     // 自动下载安装
     private boolean autoDownLoad = true;
 
@@ -122,31 +122,51 @@ public class OfficeFileOpenView extends RelativeLayout implements TbsListener {
      * 初始化x5内核
      */
     private void initX5() {
-        if (!staticVersionChange) {
+        if (!CusServiceLoadMode) {
             initX5First();
-        }
-        QbSdk.setTbsListener(this);
-        if (staticVersionChange) {
-            boolean canLoadX5 = QbSdk.canLoadX5(context);
-            if (canLoadX5) {
-                displayFile();
-            } else {
-                new AlertDialog.Builder(context)
-                        .setTitle("安装提醒")
-                        .setMessage("首次预览需加载预览模块，预计耗时1分钟")
-                        .setPositiveButton("下载", (dialogInterface, i) -> {
-                            coreDownLoadPath = "http://cdnpro.jizhibao.com.cn/yapi-doc/tbs_core";
-                            startDownloadCore();
-                        })
-                        .setNegativeButton("取消", (dialogInterface, i) -> {
-                            dialogInterface.dismiss();
-                            if (callBack != null) {
-                                callBack.cancel();
+        } else {
+            QbSdk.setTbsListener(this);
+            if (CusServiceLoadMode) {
+                boolean canLoadX5 = QbSdk.canLoadX5(context);
+                if (canLoadX5) {
+                    // 第一次加载需要进行初始化否则第一次预览显示不了
+                    if (!isInitTBS && !initX5Success) {
+                        QbSdk.initX5Environment(context, new QbSdk.PreInitCallback() {
+                            @Override
+                            public void onCoreInitFinished() {
                             }
-                        })
-                        .create()
-                        .show();
 
+                            @Override
+                            public void onViewInitFinished(boolean b) {
+                                // 初始化完成
+                                isInitTBS = true;
+                                initX5Success = true;
+                                displayFile();
+                            }
+                        });
+                    } else {
+                        displayFile();
+                    }
+                } else {
+                    new AlertDialog.Builder(context)
+                            .setTitle("安装提醒")
+                            .setMessage("首次预览需加载预览模块，预计耗时1分钟")
+                            .setPositiveButton("下载", (dialogInterface, i) -> {
+                                // 用于适配Android12的内核 暂时不更新
+                                coreDownLoadPath = "http://cdnpro.jizhibao.com.cn/yapi-doc/tbs_core_046011";
+//                                coreDownLoadPath = "http://cdnpro.jizhibao.com.cn/yapi-doc/tbs_core";
+                                startDownloadCore();
+                            })
+                            .setNegativeButton("取消", (dialogInterface, i) -> {
+                                dialogInterface.dismiss();
+                                if (callBack != null) {
+                                    callBack.cancel();
+                                }
+                            })
+                            .create()
+                            .show();
+
+                }
             }
         }
     }
@@ -154,10 +174,12 @@ public class OfficeFileOpenView extends RelativeLayout implements TbsListener {
     private void initX5First() {
         // 初始化TBS
         // 在调用TBS初始化、创建WebView之前进行如下配置
+        QbSdk.reset(context);
         HashMap<String, Object> map = new HashMap<>();
         map.put(TbsCoreSettings.TBS_SETTINGS_USE_SPEEDY_CLASSLOADER, true);
         map.put(TbsCoreSettings.TBS_SETTINGS_USE_DEXLOADER_SERVICE, true);
         QbSdk.initTbsSettings(map);
+        QbSdk.setTbsListener(OfficeFileOpenView.this);
         QbSdk.setDownloadWithoutWifi(true);//非wifi条件下允许下载X5内核
         //x5内核初始化接口
         QbSdk.initX5Environment(context, new QbSdk.PreInitCallback() {
@@ -173,6 +195,7 @@ public class OfficeFileOpenView extends RelativeLayout implements TbsListener {
                             .setPositiveButton("下载", (dialogInterface, i) -> {
                                 autoDownLoad = false;
                                 QbSdk.reset(context);
+                                QbSdk.setDownloadWithoutWifi(true);
                                 QbSdk.setTbsListener(OfficeFileOpenView.this);
                                 TbsDownloader.startDownload(context);
                             })
@@ -235,16 +258,17 @@ public class OfficeFileOpenView extends RelativeLayout implements TbsListener {
     private void displayFile() {
         fileName = filePath.substring(filePath.lastIndexOf("/") + 1);
         if (filePath.contains("http")) {
-            isLocalFile = false;
+//            isLocalFile = false;
             if (!fileName.contains(".")) {
                 fileName = fileName + otherName.substring(otherName.lastIndexOf("."));
             }
             // 判断文件是否存在，如存在则已经完成下载
+            File cacheFile = new File(context.getExternalCacheDir(), fileName);
             String basePath = Environment.getExternalStorageDirectory().getPath() + "/Download";
-            file = new File(basePath + "/" + fileName);
-            if (file.exists()) {
-                filePath = file.getAbsolutePath();
-                localOpenFile();
+            File file = new File(basePath + "/" + fileName);
+            if (cacheFile.exists()) {
+                filePath = cacheFile.getAbsolutePath();
+                localOpenFile(false);
             } else {
                 // 如果没有Download文件夹需要先创建
                 if (!file.getParentFile().exists()) {
@@ -257,14 +281,19 @@ public class OfficeFileOpenView extends RelativeLayout implements TbsListener {
                 startDownload();
             }
         } else {
-            isLocalFile = true;
-            localOpenFile();
+//            isLocalFile = true;
+            localOpenFile(true);
         }
     }
 
-    private void localOpenFile() {
-        if (!fileName.contains(".")) {
-            filePath = getCacheFile(context, filePath, filePath + otherName.substring(otherName.lastIndexOf(".")));
+    private void localOpenFile(boolean needCopy) {
+        if (needCopy) {
+            if (!fileName.contains(".")) {
+                String name = filePath.substring(filePath.lastIndexOf("/"));
+                filePath = getCacheFile(context, filePath, name + otherName.substring(otherName.lastIndexOf(".")));
+            } else {
+                filePath = getCacheFile(context, filePath, filePath.substring(filePath.lastIndexOf("/")));
+            }
         }
         hideLoading();
         Bundle bundle = new Bundle();
@@ -296,8 +325,7 @@ public class OfficeFileOpenView extends RelativeLayout implements TbsListener {
         loadingView.setLayoutParams(params);
         loadingView.setBackgroundResource(R.drawable.office_loading_shape);
         loadingView.setGravity(LinearLayout.VERTICAL);
-        loadingView.setOnClickListener(view -> {
-        });
+        loadingView.setOnClickListener(view -> L.e(""));
 
         // 添加加载效果
         ProgressBar progressBar = new ProgressBar(context);
@@ -353,7 +381,7 @@ public class OfficeFileOpenView extends RelativeLayout implements TbsListener {
      * 静态安装文件获取
      */
     public static String getAssetsCacheFile(Context context, String fileName) {
-        File cacheFile = new File(context.getCacheDir(), fileName);
+        File cacheFile = new File(context.getExternalCacheDir(), fileName);
         try {
             InputStream inputStream = context.getAssets().open(fileName);
             try {
@@ -377,7 +405,7 @@ public class OfficeFileOpenView extends RelativeLayout implements TbsListener {
     }
 
     public static String getCacheFile(Context context, String oldUrl, String fileName) {
-        File cacheFile = new File(context.getCacheDir(), fileName);
+        File cacheFile = new File(context.getExternalCacheDir(), fileName);
         try {
             try (InputStream inputStream = new FileInputStream(oldUrl)) {
                 try (FileOutputStream outputStream = new FileOutputStream(cacheFile)) {
@@ -390,6 +418,7 @@ public class OfficeFileOpenView extends RelativeLayout implements TbsListener {
             }
         } catch (IOException e) {
             e.printStackTrace();
+            return oldUrl;
         }
         return cacheFile.getAbsolutePath();
     }
@@ -407,10 +436,11 @@ public class OfficeFileOpenView extends RelativeLayout implements TbsListener {
         if (i == 200) {
             if (downloadingHint != null) {
                 ((Activity) context).runOnUiThread(() -> downloadingHint.setText("安装完成"));
+                coreDownLoadPath = "";
             }
             initX5Success = true;
             isInitTBS = true;
-            if (staticVersionChange) {
+            if (CusServiceLoadMode) {
                 ((Activity) context).runOnUiThread(this::displayFile);
             }
             if (!autoDownLoad) {
@@ -435,7 +465,6 @@ public class OfficeFileOpenView extends RelativeLayout implements TbsListener {
     }
 
     /*********************************************下载相关*******************************************/
-    private File file;
     private long mRequestId;
     private DownloadManager mDownloadManager;
     private DownloadObserver mDownloadObserver;
@@ -488,7 +517,7 @@ public class OfficeFileOpenView extends RelativeLayout implements TbsListener {
         // 判断文件夹是否存在 不存在则创建
         if (!file.exists()) L.e(file.mkdirs() + " 状态");
         // 查询文件是否已经存在 存在就删除重新下载
-        coreInstallPath = corePath + "/" + "tbs_core";
+        coreInstallPath = corePath + "/" + "tbs_core_046011";
         file = new File(coreInstallPath);
         if (file.exists()) L.e(file.delete() + " 状态");
         mDownloadObserver = new DownloadObserver(new Handler());
@@ -498,7 +527,7 @@ public class OfficeFileOpenView extends RelativeLayout implements TbsListener {
         String fileUrl = toUtf8String(coreDownLoadPath);
         try {
             DownloadManager.Request request = new DownloadManager.Request(Uri.parse(fileUrl));
-            request.setDestinationInExternalPublicDir(Environment.DIRECTORY_DOWNLOADS, "tbs_core");
+            request.setDestinationInExternalPublicDir(Environment.DIRECTORY_DOWNLOADS, "tbs_core_046011");
             request.allowScanningByMediaScanner();
             request.setNotificationVisibility(DownloadManager.Request.VISIBILITY_HIDDEN);
             mRequestId = mDownloadManager.enqueue(request);
@@ -523,13 +552,47 @@ public class OfficeFileOpenView extends RelativeLayout implements TbsListener {
                     downloadingHint.setText("正在安装预览工具(" + progress + "/100)");
                     if (DownloadManager.STATUS_SUCCESSFUL == status
                             && downloadingHint.getVisibility() == View.VISIBLE) {
-                        coreDownLoadPath = "";
-                        QbSdk.installLocalTbsCore(context, 45318, coreInstallPath);
+                        // Android 12 不允许在其他位置安装apk 需要优化
+                        File cacheFile = new File(context.getExternalCacheDir(), "tbs_core_046011");
+                        try {
+                            File file = new File(coreInstallPath);
+                            try (InputStream inputStream = new FileInputStream(file)) {
+                                try (FileOutputStream outputStream = new FileOutputStream(cacheFile)) {
+                                    byte[] buf = new byte[1024];
+                                    int len;
+                                    while ((len = inputStream.read(buf)) > 0) {
+                                        outputStream.write(buf, 0, len);
+                                    }
+                                }
+                            }
+                            L.e(file.delete() + "");
+                        } catch (IOException e) {
+                            e.printStackTrace();
+                        }
+                        QbSdk.installLocalTbsCore(context, 45318, cacheFile.getAbsolutePath());
                     }
                 } else {
                     downloadingHint.setText("载入文档中...(" + formatKMGByBytes(currentBytes) + "/" + formatKMGByBytes(totalBytes) + ")");
-                    if (DownloadManager.STATUS_SUCCESSFUL == status
-                            && downloadingHint.getVisibility() == View.VISIBLE) {
+                    if (DownloadManager.STATUS_SUCCESSFUL == status && downloadingHint.getVisibility() == View.VISIBLE) {
+                        // Android 12 不允许在其他位置安装apk 需要优化
+                        File cacheFile = new File(context.getExternalCacheDir(), fileName);
+                        try {
+                            String corePath = Environment.getExternalStorageDirectory().getAbsolutePath();
+                            corePath = corePath + "/Download";
+                            File file = new File(corePath + "/" + fileName);
+                            try (InputStream inputStream = new FileInputStream(file)) {
+                                try (FileOutputStream outputStream = new FileOutputStream(cacheFile)) {
+                                    byte[] buf = new byte[1024];
+                                    int len;
+                                    while ((len = inputStream.read(buf)) > 0) {
+                                        outputStream.write(buf, 0, len);
+                                    }
+                                }
+                            }
+                            file.delete();
+                        } catch (IOException e) {
+                            e.printStackTrace();
+                        }
                         displayFile();
                     }
                 }
@@ -606,9 +669,9 @@ public class OfficeFileOpenView extends RelativeLayout implements TbsListener {
         if (mDownloadObserver != null) {
             context.getContentResolver().unregisterContentObserver(mDownloadObserver);
         }
-        if (!isLocalFile && file != null && file.exists()) {
-            L.e(file.delete() + " = 文件删除状态");
-        }
+//        if (!isLocalFile && file != null && file.exists()) {
+//            L.e(file.delete() + " = 文件删除状态");
+//        }
     }
 
 }

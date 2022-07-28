@@ -23,133 +23,7 @@
 	    	scrollPicture = api.require('scrollPicture');
 	    	loginMedia();
 	    }
-	    
-		function showAlert(){
-			var param = {msg:"Hello APICloud!"};
-	        uzmoduledemo.showAlert(param, function(ret, err){
-	        	alert(JSON.stringify(ret));
-	        });
-		}
 
-		function BMshowAlert(){
-			var param = {msg:"Hello APICloud!"};
-			api.require('ModuleB').showAlert(param);
-		}
-
-		function AMaddView(){
-			var param = {x:20,y:20,w:200,h:200};
-	        api.require('ModuleA').addView(param);
-		}
-		
-		function startActivity(){
-			var param = {appParam:"Hello APICloud!"};
-	        uzmoduledemo.startActivity(param);
-		}
-		
-		function startActivityForResult(){
-			var param = {appParam:"Hello APICloud!"};
-			var resultCallback = function(ret, err){
-				document.getElementById("activity_result").innerHTML = JSON.stringify(ret);
-			}
-	        uzmoduledemo.startActivityForResult(param, resultCallback);
-		}
-
-		function CMstartActivity(){
-			var param = {appParam:"Hello APICloud!"};
-	        api.require('ModuleC').startActivity(param);
-		}
-
-		function CMstartActivityForResult(){
-			var param = {appParam:"Hello APICloud!"};
-			var resultCallback = function(ret, err){
-				document.getElementById("activity_result").innerHTML = JSON.stringify(ret);
-			}
-	        api.require('ModuleC').startActivityForResult(param, resultCallback);
-		}
-		
-		function vibrate(){
-			var mill = document.getElementById("vibrate").value;
-			var param = {milliseconds:mill};
-	        uzmoduledemo.vibrate(param);
-		}
-		
-		function stopVibrate(){
-	        uzmoduledemo.stopVibrate();
-		}
-		
-		function addView(){
-			var param = {x:20,y:20,w:200,h:200};
-	        uzmoduledemo.addView(param);
-		}
-		
-		function removeView(){
-		
-	        uzmoduledemo.removeView();
-		}
-
-		function testopen(){
-			var sw = document.getElementById("sw").value;
-			scrollPicture.open({
-				x:0,
-				y:30,
-				w:sw,
-				h:200,
-				fixedOn:'index_frm', //固定在名为'index_frm'的frame上
-				//fixed:false //跟随网页滚动
-			}, function(ret, err){
-				alert(JSON.stringify(ret));
-			});
-		}
-		
-		function testclose(){
-			scrollPicture.close();
-		}
-		
-		function toRefrash(){
-			api.refreshHeaderLoading();
-		}
-		
-		function stopRefrash(){
-			api.refreshHeaderLoadDone();
-		}
-		
-		function setRefrashHeader(){
-			api.setCustomRefreshHeaderInfo({
-			    arrowImage: 'widget://image/refresh.png'
-			}, function( ret, err ){
-			    ;
-			});
-			alert('设置成功，再进入下拉刷新状态看看图片是否变啦！');
-		}
-		
-		var sModule = null;
-		
-		function syncInterface(what){
-			if(!sModule){
-				sModule = api.require('syncModule');
-			}
-			var ret = null;
-			if(0 == what){
-				ret = sModule.int();
-			}else if(1 == what){
-				ret = sModule.float();
-			}else if(2 == what){
-				ret = sModule.boolean();
-			}else if(3 == what){
-				ret = sModule.string();
-			}else if(4 == what){
-				ret = sModule.json();
-			}else if(5 == what){
-				ret = sModule.jsonay();
-			}else{
-				return;
-			}
-			if(typeof ret === 'object'){
-				alert("获取结果为对象！\n结果：" + JSON.stringify(ret));
-			}else{
-				alert("获取结果为基本数据!\n结果：" + ret);
-			}
-		}
 <!--C97AEBAA-79AA-4AF3-996A-445093072890 谷祥银-->
 <!--174F43BE-AB46-4314-9F80-A174012BC77C 王孟沁-->
 <!--DE4EE79F-8688-4494-95BC-0DC25B648E90 7960-->
@@ -159,7 +33,7 @@
         		nickName: '谷祥银',
         		userid: 'C97AEBAA-79AA-4AF3-996A-445093072890',
         		userSig: '126',
-        		sdkAppid: '1400618102',
+        		sdkAppid: '1400676296',
         		photo : 'https://img0.baidu.com/it/u=2940250311,3429071889&fm=253&fmt=auto&app=138&f=JPEG?w=897&h=500'
     		 }, function(ret, err) {
           		alert(JSON.stringify(ret));
@@ -172,7 +46,7 @@
         		nickName: '谷先森',
         		userid: '174F43BE-AB46-4314-9F80-A174012BC77C',
         		userSig: userSig,
-        		sdkAppid: '1400618102',
+        		sdkAppid: '1400676296',
         		photo : 'https://img0.baidu.com/it/u=2940250311,3429071889&fm=253&fmt=auto&app=138&f=JPEG?w=897&h=500'
     		 }, function(ret, err) {
           		alert(JSON.stringify(ret));
@@ -293,13 +167,6 @@
 			    alert(JSON.stringify(ret));
 			});
 		}
-		function add_Change(){
-		    var UIChatBox = api.require('jzbChatMedia');
-			UIChatBox.addHostChange({
-			}, function(ret, err) {
-			    alert(JSON.stringify(ret));
-			});
-		}
 
 		function add_Float(){
 		    var UIChatBox = api.require('jzbChatMedia');
@@ -320,17 +187,29 @@
              });
 		}
 
+		function isLogin(){
+		    var UIChatBox = api.require('jzbChatMedia');
+			UIChatBox.isLogin({
+			}, function(ret, err) {
+			    alert(JSON.stringify(ret));
+			});
+		}
+		function loginOut(){
+		    var UIChatBox = api.require('jzbChatMedia');
+			UIChatBox.loginOut({
+			}, function(ret, err) {
+			    alert(JSON.stringify(ret));
+			});
+		}
 	</script>
 </head>
 <body>
     <div id="wrap">
         <div id="main">
         	<br>
-			<div class='itemtitle'>1、弹出对话框</div>
-				<div class="clickbtn" tapmode="active" onclick="showAlert()" >点击弹出</div>
-			<div class='itemtitle'>2、启动Activity</div>
 				<div class="clickbtn" tapmode="active" onclick="loginMedia()" >登录</div>
 			    <div class="clickbtn" tapmode="active" onclick="loginMediaBySig()" >登录bySig</div>
+			    <div class="clickbtn" tapmode="active" onclick="loginOut()" >退出登录</div>
 				<div class="clickbtn" tapmode="active" onclick="singleAudio()" >1对1语音聊天</div>
 				<div class="clickbtn" tapmode="active" onclick="singleVideo()" >1对1视频聊天</div>
 				<div class="clickbtn" tapmode="active" onclick="manyAudio()" >多人语音聊天</div>
@@ -338,42 +217,11 @@
 			    <div class="clickbtn" tapmode="active" onclick="reservationRoom()" >预定会议</div>
 			    <div class="clickbtn" tapmode="active" onclick="createRoom()" >创建会议</div>
 			    <div class="clickbtn" tapmode="active" onclick="enterRoom()" >加入会议</div>
-			    <div class="clickbtn" tapmode="active" onclick="add_Elv()" >监听邀请</div>
-			    <div class="clickbtn" tapmode="active" onclick="add_Change()" >监听主持人变更</div>
+			    <div class="clickbtn" tapmode="active" onclick="add_Elv()" >监听</div>
 			    <div class="clickbtn" tapmode="active" onclick="add_Float()" >检查悬浮窗权限</div>
 			    <div class="clickbtn" tapmode="active" onclick="audioToVideo()">聊天功能</div>
 			   <div class="clickbtn" tapmode="active" onclick="audioToVideo()">返回上个页面</div>
-			<div class='itemtitle'>3、调用设备震动</div>
-				<lable>设置震动时间，单位：毫秒</lable><br>
-				<input type="number" id="vibrate" value="20000" />
-				<div class="clickbtn" tapmode="active" onclick="vibrate()" >开始震动</div>
-				<div class="clickbtn" tapmode="active" onclick="stopVibrate()" >停止震动</div>
-			<div class='itemtitle'>4、自定义UI模块</div>
-				<div class="clickbtn" tapmode="active" onclick="addView()" >添加自定义View到当前Window</div>
-				<div class="clickbtn" tapmode="active" onclick="removeView()" >从当前Window移除自定义View</div>
-			<div class='itemtitle'>5、简单ScrollPicture模块</div>
-				<lable>输入ScrollPicture的宽度</lable><br>
-				<input type="number" id="sw" value="300"/>
-				<div class="clickbtn" tapmode="active" onclick="testopen()" >打开ScrollPicture</div>
-				<div class="clickbtn" tapmode="active" onclick="testclose()" >移除ScrollPicture</div>
-			<div class='itemtitle'>6、自定义简单的下拉刷新模块</div>
-				<div class="clickbtn" tapmode="active" onclick="toRefrash()" >直接进入下拉刷新</div>
-				<div class="clickbtn" tapmode="active" onclick="stopRefrash()" >退出下拉刷新</div>
-				<div class="clickbtn" tapmode="active" onclick="setRefrashHeader()" >设置自定义下拉刷新模块</div>
-			<div class='itemtitle'>7、同步接口</div>
-				<div class="clickbtn" tapmode="active" onclick="syncInterface(0)" >同步获取整数</div>
-				<div class="clickbtn" tapmode="active" onclick="syncInterface(1)" >同步获取小数</div>
-				<div class="clickbtn" tapmode="active" onclick="syncInterface(2)" >同步获取bool值</div>
-				<div class="clickbtn" tapmode="active" onclick="syncInterface(3)" >同步获取字符串</div>
-				<div class="clickbtn" tapmode="active" onclick="syncInterface(4)" >同步获取JSON对象</div>
-				<div class="clickbtn" tapmode="active" onclick="syncInterface(5)" >同步获取JSON数组对象</div>
-			<div class='itemtitle'>8、模块B弹出对话框</div>
-				<div class="clickbtn" tapmode="active" onclick="BMshowAlert()" >点击弹出</div>
-			<div class='itemtitle'>9、模块A自定义UI模块</div>
-				<div class="clickbtn" tapmode="active" onclick="AMaddView()" >添加自定义View到当前Window</div>
-			<div class='itemtitle'>10、模块C启动Activity</div>
-				<div class="clickbtn" tapmode="active" onclick="CMstartActivity()" >startActivity</div>
-				<div class="clickbtn" tapmode="active" onclick="CMstartActivityForResult()" >startActivityForResult</div>
+			   <div class="clickbtn" tapmode="active" onclick="isLogin()">是否登录</div>
 			<br>
 		</div>
 	</div>

@@ -8,8 +8,6 @@ import android.os.Message;
 import android.os.Vibrator;
 import android.support.annotation.NonNull;
 
-import com.push.jzb.service.MessageReceiver;
-
 /**
  * create：2022/5/25 17:05
  *

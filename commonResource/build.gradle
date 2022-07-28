@@ -48,6 +48,11 @@ dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar','*.aar'])
     compileOnly files('../app/libs/apiEngine v1.1.0.jar')
     compileOnly 'com.android.support:support-v4:26.0.0'
+    implementation project(':jzbChatTools')
+    implementation project(':jzbChatBox')
     implementation project(':jzbOfficePreview')
     implementation project(':jzbPush2')
+//    implementation project(':jzbChatMedia')
+    implementation project(':jzbYs')
+    implementation project(':jzbYuShi')
 }

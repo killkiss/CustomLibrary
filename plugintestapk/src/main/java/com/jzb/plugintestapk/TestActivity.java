@@ -1,5 +1,7 @@
 package com.jzb.plugintestapk;
 
+import static com.jzb.plugintestapk.Constants.MODULE_TEST_VERSION;
+
 import android.app.Activity;
 import android.content.Context;
 import android.content.res.Resources;
@@ -24,9 +26,9 @@ public class TestActivity implements ActivityInterface {
         context.setContentView(view);
         TextView textView = view.findViewById(R.id.tv_content);
         if (bundle != null) {
-            String version = bundle.getString("MODULE_VERSION");
+            String version = MODULE_TEST_VERSION;
             textView.setText("插件化APK版本号：" + version);
-            showData(context, version);
+            showData(context);
         }
     }
 
@@ -55,8 +57,8 @@ public class TestActivity implements ActivityInterface {
         Log.e("-main-", "onDestroy");
     }
 
-    public void showData(Context context, String version) {
-        TestUtils.showData(context, version);
+    public void showData(Context context) {
+        TestUtils.showData(context);
     }
 
 }

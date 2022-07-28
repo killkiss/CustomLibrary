@@ -30,4 +30,5 @@ android {
 dependencies {
     implementation fileTree(include: ['*.jar','*.aar'], dir: 'libs')
     compileOnly files('../app/libs/apiEngine v1.1.0.jar')
+    compileOnly 'com.android.support:support-v4:26.0.0'
 }

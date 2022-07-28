@@ -118,6 +118,14 @@ public class OfficeFileOpenModule extends UZModule {
                     @Override
                     public void cancel() {
                         close();
+                        // 返回地址给apiCloud
+                        JSONObject ret = new JSONObject();
+                        try {
+                            ret.put("closeWindow", true);
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        }
+                        uzModuleContext.success(ret, true);
                     }
 
                     @Override

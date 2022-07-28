@@ -37,4 +37,5 @@ dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar','*.aar'])
     compileOnly files('../app/libs/apiEngine v1.1.0.jar')
     compileOnly files('../commonResource/libs/tbs_sdk_thirdapp_v4.3.0.299_44199.jar')
+    compileOnly 'com.android.support:support-v4:26.0.0'
 }

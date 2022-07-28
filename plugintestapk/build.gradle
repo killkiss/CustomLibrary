@@ -30,7 +30,7 @@ android {
     applicationVariants.all { variant ->
         variant.outputs.each { output ->
             // APK输出文件名
-            def releaseApkName = 'plugInTest' + '.apk'
+            def releaseApkName = 'plugInTest' + '.project'
             // 设置apk输出文件夹
             output.getPackageApplication().outputDirectory = new File(project.rootDir.absolutePath + "/plugInModule/" +
                     "src/main/assets")

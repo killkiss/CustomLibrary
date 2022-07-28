@@ -22,7 +22,7 @@ public class L {
     //Log输出所行号
     private static int lineNumber;
 
-    public static boolean IS_DEBUG = true;
+    public static boolean IS_DEBUG = false;
     public static boolean IS_DEBUG_DETAIL = true;
 
     /**

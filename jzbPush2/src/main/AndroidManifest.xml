@@ -2,6 +2,7 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.push.jzb">
 
+    <uses-permission android:name="android.permission.REORDER_TASKS" />
     <uses-permission android:name="android.permission.REQUEST_IGNORE_BATTERY_OPTIMIZATIONS" />
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.INTERNET" />
@@ -38,10 +39,10 @@
     <uses-permission android:name="com.youdi.jzb.permission.C2D_MESSAGE" />
 
     <!-- TPNS-->
-    <permission
-        android:name="com.youdi.jzb.permission.XGPUSH_RECEIVE"
-        android:protectionLevel="signature" />
-    <uses-permission android:name="com.youdi.jzb.permission.XGPUSH_RECEIVE" />
+<!--    <permission-->
+<!--        android:name="com.youdi.jzb.permission.XGPUSH_RECEIVE"-->
+<!--        android:protectionLevel="signature" />-->
+<!--    <uses-permission android:name="com.youdi.jzb.permission.XGPUSH_RECEIVE" />-->
 
     <!-- 【必须】 移动推送 TPNS SDK所需权限 -->
     <uses-permission android:name="android.permission.INTERNET" />
@@ -206,118 +207,118 @@
         <!--        </activity>-->
 
         <!-- TPNS-->
-        <activity
-            android:name="com.tencent.android.tpush.TpnsActivity"
-            android:exported="true"
-            android:launchMode="singleInstance"
-            android:theme="@android:style/Theme.Translucent.NoTitleBar">
-            <intent-filter>
-                <action android:name="${applicationId}.OPEN_TPNS_ACTIVITY" />
-                <category android:name="android.intent.category.DEFAULT" />
-            </intent-filter>
-            <intent-filter>
-                <data
-                    android:host="${applicationId}"
-                    android:scheme="tpns" />
-                <action android:name="android.intent.action.VIEW" />
+<!--        <activity-->
+<!--            android:name="com.tencent.android.tpush.TpnsActivity"-->
+<!--            android:exported="true"-->
+<!--            android:launchMode="singleInstance"-->
+<!--            android:theme="@android:style/Theme.Translucent.NoTitleBar">-->
+<!--            <intent-filter>-->
+<!--                <action android:name="${applicationId}.OPEN_TPNS_ACTIVITY" />-->
+<!--                <category android:name="android.intent.category.DEFAULT" />-->
+<!--            </intent-filter>-->
+<!--            <intent-filter>-->
+<!--                <data-->
+<!--                    android:host="${applicationId}"-->
+<!--                    android:scheme="tpns" />-->
+<!--                <action android:name="android.intent.action.VIEW" />-->
 
-                <category android:name="android.intent.category.BROWSABLE" />
-                <category android:name="android.intent.category.DEFAULT" />
-            </intent-filter>
-            <intent-filter>
-                <action android:name="android.intent.action" />
-            </intent-filter>
-        </activity>
+<!--                <category android:name="android.intent.category.BROWSABLE" />-->
+<!--                <category android:name="android.intent.category.DEFAULT" />-->
+<!--            </intent-filter>-->
+<!--            <intent-filter>-->
+<!--                <action android:name="android.intent.action" />-->
+<!--            </intent-filter>-->
+<!--        </activity>-->
 
-        <activity
-            android:name="com.tencent.android.tpush.InnerTpnsActivity"
-            android:exported="false"
-            android:launchMode="singleInstance"
-            android:theme="@android:style/Theme.Translucent.NoTitleBar">
-            <intent-filter>
-                <action android:name="${applicationId}.OPEN_TPNS_ACTIVITY_V2" />
-                <category android:name="android.intent.category.DEFAULT" />
-            </intent-filter>
-            <intent-filter>
-                <data
-                    android:host="${applicationId}"
-                    android:scheme="stpns" />
-                <action android:name="android.intent.action.VIEW" />
+<!--        <activity-->
+<!--            android:name="com.tencent.android.tpush.InnerTpnsActivity"-->
+<!--            android:exported="false"-->
+<!--            android:launchMode="singleInstance"-->
+<!--            android:theme="@android:style/Theme.Translucent.NoTitleBar">-->
+<!--            <intent-filter>-->
+<!--                <action android:name="${applicationId}.OPEN_TPNS_ACTIVITY_V2" />-->
+<!--                <category android:name="android.intent.category.DEFAULT" />-->
+<!--            </intent-filter>-->
+<!--            <intent-filter>-->
+<!--                <data-->
+<!--                    android:host="${applicationId}"-->
+<!--                    android:scheme="stpns" />-->
+<!--                <action android:name="android.intent.action.VIEW" />-->
 
-                <category android:name="android.intent.category.BROWSABLE" />
-                <category android:name="android.intent.category.DEFAULT" />
-            </intent-filter>
-            <intent-filter>
-                <action android:name="android.intent.action" />
-            </intent-filter>
-        </activity>
+<!--                <category android:name="android.intent.category.BROWSABLE" />-->
+<!--                <category android:name="android.intent.category.DEFAULT" />-->
+<!--            </intent-filter>-->
+<!--            <intent-filter>-->
+<!--                <action android:name="android.intent.action" />-->
+<!--            </intent-filter>-->
+<!--        </activity>-->
 
-        <!-- 【必须】 信鸽receiver广播接收 -->
-        <receiver
-            android:name="com.tencent.android.tpush.XGPushReceiver"
-            android:exported="false"
-            android:process=":xg_vip_service">
-            <intent-filter android:priority="0x7fffffff">
-                <!-- 【必须】 信鸽SDK的内部广播 -->
-                <action android:name="com.tencent.android.xg.vip.action.SDK" />
-                <action android:name="com.tencent.android.xg.vip.action.INTERNAL_PUSH_MESSAGE" />
-                <action android:name="com.tencent.android.xg.vip.action.ACTION_SDK_KEEPALIVE" />
-            </intent-filter>
-        </receiver>
+<!--        &lt;!&ndash; 【必须】 信鸽receiver广播接收 &ndash;&gt;-->
+<!--        <receiver-->
+<!--            android:name="com.tencent.android.tpush.XGPushReceiver"-->
+<!--            android:exported="false"-->
+<!--            android:process=":xg_vip_service">-->
+<!--            <intent-filter android:priority="0x7fffffff">-->
+<!--                &lt;!&ndash; 【必须】 信鸽SDK的内部广播 &ndash;&gt;-->
+<!--                <action android:name="com.tencent.android.xg.vip.action.SDK" />-->
+<!--                <action android:name="com.tencent.android.xg.vip.action.INTERNAL_PUSH_MESSAGE" />-->
+<!--                <action android:name="com.tencent.android.xg.vip.action.ACTION_SDK_KEEPALIVE" />-->
+<!--            </intent-filter>-->
+<!--        </receiver>-->
 
-        <!-- 【必须】移动推送 TPNS service -->
-        <service
-            android:name="com.tencent.android.tpush.service.XGVipPushService"
-            android:persistent="true"
-            android:process=":xg_vip_service" />
+<!--        &lt;!&ndash; 【必须】移动推送 TPNS service &ndash;&gt;-->
+<!--        <service-->
+<!--            android:name="com.tencent.android.tpush.service.XGVipPushService"-->
+<!--            android:persistent="true"-->
+<!--            android:process=":xg_vip_service" />-->
 
-        <!-- 【必须】通知 service ，android:name 部分改为包名.XGVIP_PUSH_ACTION -->
-        <service
-            android:name="com.tencent.android.tpush.rpc.XGRemoteService"
-            android:exported="false">
-            <intent-filter>
-                <!-- 【必须】请修改为当前APP名包.XGVIP_PUSH_ACTION -->
-                <action android:name="com.youdi.jzb.XGVIP_PUSH_ACTION" />
-            </intent-filter>
-        </service>
+<!--        &lt;!&ndash; 【必须】通知 service ，android:name 部分改为包名.XGVIP_PUSH_ACTION &ndash;&gt;-->
+<!--        <service-->
+<!--            android:name="com.tencent.android.tpush.rpc.XGRemoteService"-->
+<!--            android:exported="false">-->
+<!--            <intent-filter>-->
+<!--                &lt;!&ndash; 【必须】请修改为当前APP名包.XGVIP_PUSH_ACTION &ndash;&gt;-->
+<!--                <action android:name="com.youdi.jzb.XGVIP_PUSH_ACTION" />-->
+<!--            </intent-filter>-->
+<!--        </service>-->
 
-        <!-- 【必须】【注意】authorities 修改为包名.XGVIP_PUSH_AUTH -->
-        <provider
-            android:name="com.tencent.android.tpush.XGPushProvider"
-            android:authorities="com.youdi.jzb.XGVIP_PUSH_AUTH" />
+<!--        &lt;!&ndash; 【必须】【注意】authorities 修改为包名.XGVIP_PUSH_AUTH &ndash;&gt;-->
+<!--        <provider-->
+<!--            android:name="com.tencent.android.tpush.XGPushProvider"-->
+<!--            android:authorities="com.youdi.jzb.XGVIP_PUSH_AUTH" />-->
 
-        <!-- 【必须】【注意】authorities 修改为包名.TPUSH_PROVIDER -->
-        <provider
-            android:name="com.tencent.android.tpush.SettingsContentProvider"
-            android:authorities="com.youdi.jzb.TPUSH_PROVIDER" />
+<!--        &lt;!&ndash; 【必须】【注意】authorities 修改为包名.TPUSH_PROVIDER &ndash;&gt;-->
+<!--        <provider-->
+<!--            android:name="com.tencent.android.tpush.SettingsContentProvider"-->
+<!--            android:authorities="com.youdi.jzb.TPUSH_PROVIDER" />-->
 
-        <!-- 【可选】用于增强保活能力 -->
-        <provider
-            android:name="com.tencent.android.tpush.XGVipPushKAProvider"
-            android:authorities="com.youdi.jzb.AUTH_XGPUSH_KEEPALIVE"
-            android:exported="true" />
+<!--        &lt;!&ndash; 【可选】用于增强保活能力 &ndash;&gt;-->
+<!--        <provider-->
+<!--            android:name="com.tencent.android.tpush.XGVipPushKAProvider"-->
+<!--            android:authorities="com.youdi.jzb.AUTH_XGPUSH_KEEPALIVE"-->
+<!--            android:exported="true" />-->
 
-        <!-- 【可选】APP实现的Receiver，用于接收消息透传和操作结果的回调，请根据需要添加 -->
-        <!-- YOUR_PACKAGE_PATH.CustomPushReceiver需要改为自己的Receiver： -->
-        <receiver android:name="com.push.jzb.service.MessageReceiver">
-            <intent-filter>
-                <!-- 接收消息透传 -->
-                <action android:name="com.tencent.android.xg.vip.action.PUSH_MESSAGE" />
-                <!-- 监听注册、反注册、设置/删除标签、通知被点击等处理结果 -->
-                <action android:name="com.tencent.android.xg.vip.action.FEEDBACK" />
-            </intent-filter>
-        </receiver>
+<!--        &lt;!&ndash; 【可选】APP实现的Receiver，用于接收消息透传和操作结果的回调，请根据需要添加 &ndash;&gt;-->
+<!--        &lt;!&ndash; YOUR_PACKAGE_PATH.CustomPushReceiver需要改为自己的Receiver： &ndash;&gt;-->
+<!--        <receiver android:name="com.push.jzb.service.MessageReceiver">-->
+<!--            <intent-filter>-->
+<!--                &lt;!&ndash; 接收消息透传 &ndash;&gt;-->
+<!--                <action android:name="com.tencent.android.xg.vip.action.PUSH_MESSAGE" />-->
+<!--                &lt;!&ndash; 监听注册、反注册、设置/删除标签、通知被点击等处理结果 &ndash;&gt;-->
+<!--                <action android:name="com.tencent.android.xg.vip.action.FEEDBACK" />-->
+<!--            </intent-filter>-->
+<!--        </receiver>-->
 
-        <!-- MQTT START -->
-        <service
-            android:name="com.tencent.tpns.mqttchannel.services.MqttService"
-            android:exported="false"
-            android:process=":xg_vip_service" />
+<!--        &lt;!&ndash; MQTT START &ndash;&gt;-->
+<!--        <service-->
+<!--            android:name="com.tencent.tpns.mqttchannel.services.MqttService"-->
+<!--            android:exported="false"-->
+<!--            android:process=":xg_vip_service" />-->
 
-        <provider
-            android:name="com.tencent.tpns.baseapi.base.SettingsContentProvider"
-            android:authorities="com.youdi.jzb.XG_SETTINGS_PROVIDER"
-            android:exported="false" />
+<!--        <provider-->
+<!--            android:name="com.tencent.tpns.baseapi.base.SettingsContentProvider"-->
+<!--            android:authorities="com.youdi.jzb.XG_SETTINGS_PROVIDER"-->
+<!--            android:exported="false" />-->
 
         <!-- MQTT END-->
 

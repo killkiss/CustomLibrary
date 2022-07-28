@@ -22,10 +22,11 @@
 			var obj = api.require('jzbPlugIn');
 			obj.loadTestModule({
 			    useTestModule:true,
-<!--			    apiType:"method",-->
-<!--			    apiName:"showData"-->
-                apiType:"activity",
-			    apiName:"TestActivity"
+			    apiType:"method",
+			    apiName:"showData",
+			    className:"TestUtils",
+<!--                apiType:"activity",-->
+<!--			    className:"TestActivity"-->
 			}, function(ret,err){
 				alert(JSON.stringify(ret));
 			});
@@ -40,7 +41,7 @@
         // 测试插件化模块当前版本信息
         var MODULE_TEST_VERSION = '0.0.2';
         // 测试插件化模块下载地址
-        var MODULE_TEST_DOWNLOAD_URL = '';
+        var MODULE_TEST_DOWNLOAD_URL = 'https://raw.githubusercontent.com/Yankerxn/CustomLibrary/main/plugInModule/src/main/assets/plugInTest.apk';
 				var androidPlugIn = api.require('jzbPlugIn');
         var MODULE_INFO = [
             {

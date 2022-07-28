@@ -12,7 +12,7 @@ import android.widget.Toast;
  */
 public class TestUtils {
 
-    public static void showData(Context context, String version) {
-        Toast.makeText(context, "测试成功 + 版本" + version, Toast.LENGTH_SHORT).show();
+    public static void showData(Context context) {
+        Toast.makeText(context, "测试成功 + 版本" + Constants.MODULE_TEST_VERSION, Toast.LENGTH_SHORT).show();
     }
 }

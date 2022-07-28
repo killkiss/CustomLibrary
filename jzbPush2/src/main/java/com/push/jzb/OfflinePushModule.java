@@ -8,6 +8,7 @@ import static com.push.jzb.service.MyService.USER_ID;
 import static com.push.jzb.service.MyService.USER_SIG;
 
 import android.app.Activity;
+import android.app.ActivityManager;
 import android.app.AlertDialog;
 import android.app.AppOpsManager;
 import android.app.Application;
@@ -79,6 +80,8 @@ public class OfflinePushModule extends UZModule {
     private String userSig;
     private String sdkID;
     private static UZModuleContext notifyContext;
+    // 应用当前运行环境
+    private static boolean appRunStatus;
 
     public OfflinePushModule(UZWebView webView) {
         super(webView);
@@ -312,6 +315,19 @@ public class OfflinePushModule extends UZModule {
      */
     public static void handlerMessageCallBack(NotifyBean bean) {
         if (bean != null && notifyContext != null) {
+            // 当应用处于后台时
+            if (!appRunStatus) {
+                // 处理点击事件需要唤醒页面
+                ActivityManager activityManager = (ActivityManager) notifyContext.getContext().getSystemService(Context.ACTIVITY_SERVICE);
+                List<ActivityManager.RunningTaskInfo> taskInfoList = activityManager.getRunningTasks(20);
+                for (ActivityManager.RunningTaskInfo taskInfo : taskInfoList) {
+                    // 找到本应用的 task，并将它切换到前台
+                    if (taskInfo.baseActivity.getPackageName().equals(notifyContext.getContext().getPackageName())) {
+                        activityManager.moveTaskToFront(taskInfo.id, ActivityManager.MOVE_TASK_WITH_HOME);
+                        break;
+                    }
+                }
+            }
             L.e("处理回调," + bean.getExt());
             JSONObject ret = new JSONObject();
             try {
@@ -481,6 +497,7 @@ public class OfflinePushModule extends UZModule {
                     if (foregroundActivities == 1 && !isChangingConfiguration) {
                         // 应用切到前台
                         L.e("application enter foreground");
+                        appRunStatus = true;
                         V2TIMManager.getOfflinePushManager().doForeground(new V2TIMCallback() {
                             @Override
                             public void onError(int code, String desc) {
@@ -513,6 +530,7 @@ public class OfflinePushModule extends UZModule {
                     if (foregroundActivities == 0) {
                         // 应用切到后台
                         L.e("application enter background");
+                        appRunStatus = false;
                         V2TIMManager.getConversationManager().getTotalUnreadMessageCount(new V2TIMValueCallback<Long>() {
                             @Override
                             public void onSuccess(Long aLong) {
@@ -727,5 +745,4 @@ public class OfflinePushModule extends UZModule {
             e.printStackTrace();
         }
     }
-
 }
