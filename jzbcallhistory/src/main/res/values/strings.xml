@@ -1,0 +1,5 @@
+<resources>
+    <string name="app_name">jzbcallhistory</string>
+    <string name="all_history">所有通话</string>
+    <string name="unconnected">未接来电</string>
+</resources>

@@ -21,4 +21,21 @@ public class Constants {
     // 测试插件化模块使用资源前缀
     public static final String MODULE_TEST_PACKAGE_ID = "0x70";
 
+    // 视频插件化模块名字
+    public static final String MODULE_MEDIA_TEST = "mediaModule";
+    public static final String MODULE_MEDIA_CONSTANTS = "com.jzb.media.play.config.Constants";
+    public static final String MODULE_MEDIA_APK = "jzbMediaPlay.project";
+    // activity
+    public static final String MODULE_MEDIA_ACTIVITY = "VideoPlayActivity";
+    // 视频插件化模块使用资源前缀
+    public static final String MODULE_MEDIA_PACKAGE_ID = "0x71";
+
+    // 通话记录插件化模块名字
+    public static final String MODULE_CALL_HISTORY = "callHistoryModule";
+    public static final String MODULE_CALL_CONSTANTS = "com.jzb.jzbcallhistory.config.Constants";
+    public static final String MODULE_CALL_APK = "jzbCallHistory.apk";
+    // activity
+    public static final String MODULE_CALL_ACTIVITY = "CallHistoryActivity";
+    // 通话记录插件化模块使用资源前缀
+    public static final String MODULE_CALL_PACKAGE_ID = "0x72";
 }

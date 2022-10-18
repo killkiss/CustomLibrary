@@ -1,11 +1,24 @@
 package com.jzb.pluginmoudle.main;
 
 import android.app.Activity;
+import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
+import android.content.IntentFilter;
 import android.content.res.AssetManager;
+import android.content.res.Configuration;
 import android.content.res.Resources;
 import android.os.Bundle;
+import android.text.TextUtils;
+import android.view.View;
+
+import com.alibaba.fastjson.JSON;
+import com.alibaba.fastjson.JSONObject;
+import com.jzb.pluginmoudle.main.utils.BrandUtil;
+import com.jzb.pluginmoudle.main.utils.MeetingRequestHelper;
+import com.jzb.pluginmoudle.main.utils.RequestUtils;
+
+import org.json.JSONException;
 
 import java.io.File;
 import java.lang.reflect.Constructor;
@@ -23,18 +36,39 @@ public class PlugInFakerActivity extends Activity {
 
     private DexClassLoader mDexClassLoader;
     private String activityName;
+    private String ext;
+    // apk名称
+    private String fileName;
     private Resources mPluginResources;
     private AssetManager mPluginAssetManager;
     private String dexPath;
+    // 宿主回调广播
+    private BroadcastReceiver mAReceiver;
+    private static PlugInFakerActivity instance;
+    private Class<?> localClass;
+
+    /**
+     * 加载类
+     */
+    private Class<?> initClass() throws ClassNotFoundException {
+        switch (activityName) {
+            case "TestActivity":
+                return mDexClassLoader.loadClass("com.jzb.plugintestapk.TestActivity");
+            case Constants.MODULE_MEDIA_ACTIVITY:
+                return mDexClassLoader.loadClass("com.jzb.media.activity.VideoPlayActivity");
+            case Constants.MODULE_CALL_ACTIVITY:
+                return mDexClassLoader.loadClass("com.jzb.jzbcallhistory.activity.CallHistoryActivity");
+        }
+        return null;
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        // 文件名
-        String fileName = "plugInTest.project";
-        // 获取测试模块插件位置
-        File testPlugInPath = DexClassLoader.getAssetsCacheFile(this, fileName);
         handlerIntentData();
+        initCallBackBroadCast();
+        // 获取模块插件位置
+        File testPlugInPath = DexClassLoader.getAssetsCacheFile(this, fileName);
         ClassLoader localClassLoader = ClassLoader.getSystemClassLoader();
         dexPath = new File(testPlugInPath.getAbsolutePath(), fileName).getAbsolutePath();
         File optimizedDirectory = new File(testPlugInPath, "pluginlib").getAbsoluteFile();
@@ -44,12 +78,19 @@ public class PlugInFakerActivity extends Activity {
         // 加载apk/jar文件
         mDexClassLoader = new DexClassLoader(dexPath, optimizedDirectory, librarySearchPath.getAbsolutePath(), localClassLoader);
         try {
-            if (activityName.equals("TestActivity")) {
-                Class<?> localClass = mDexClassLoader.loadClass("com.jzb.plugintestapk.TestActivity");
+            localClass = initClass();
+            if (localClass != null) {
                 Constructor<?> localConstructor = localClass.getConstructor();
                 Object mInstance = localConstructor.newInstance();
                 Method method = localClass.getMethod("onCreate", Activity.class, Bundle.class);
-                method.invoke(mInstance, PlugInFakerActivity.this, bundle);
+                Bundle intoBundler = new Bundle();
+                if (activityName.equals(Constants.MODULE_CALL_ACTIVITY)) {
+                    JSONObject object = JSONObject.parseObject(ext);
+                    intoBundler.putString("ext", object.getString("callRecordListData"));
+                    intoBundler.putString("unionId", object.getString("unionId"));
+                    intoBundler.putString("token", object.getString("token"));
+                }
+                method.invoke(mInstance, PlugInFakerActivity.this, intoBundler);
             }
         } catch (InvocationTargetException e) {
             Throwable t = e.getTargetException();// 获取目标异常
@@ -57,6 +98,7 @@ public class PlugInFakerActivity extends Activity {
         } catch (Exception e) {
             e.printStackTrace();
         }
+        instance = this;
     }
 
     @Override
@@ -74,11 +116,10 @@ public class PlugInFakerActivity extends Activity {
         return mDexClassLoader != null ? mDexClassLoader : super.getClassLoader();
     }
 
-    public void getMethod(String methodName) {
-        Class<?> localClass = null;
+    public void getMethod(String methodName, Object... objects) {
         try {
-            if (activityName.equals("TestActivity")) {
-                localClass = mDexClassLoader.loadClass("com.jzb.plugintestapk.TestActivity");
+            if (localClass == null) {
+                localClass = initClass();
             }
             if (localClass == null) return;
             Constructor<?> localConstructor = localClass.getConstructor();
@@ -89,7 +130,20 @@ public class PlugInFakerActivity extends Activity {
             for (Method declaredMethod : declaredMethods) {
                 if (declaredMethod.getName().equals(methodName)) {
                     declaredMethod.setAccessible(true);
-                    declaredMethod.invoke(mInstance);
+                    switch (methodName) {
+                        case "onClick":
+                            declaredMethod.invoke(mInstance, (View) objects[0]);
+                            break;
+                        case "onConfigurationChanged":
+                            declaredMethod.invoke(mInstance, (Configuration) objects[0]);
+                            break;
+                        case "hostCallBack":
+                            declaredMethod.invoke(mInstance, PlugInFakerActivity.this, (String) objects[0], (String) objects[1]);
+                            break;
+                        default:
+                            declaredMethod.invoke(mInstance);
+                            break;
+                    }
                     return;
                 }
             }
@@ -109,18 +163,15 @@ public class PlugInFakerActivity extends Activity {
         try {
             mPluginAssetManager = context.getAssets();
             // 然后调用其 addAssetPath 把插件的路径添加进去。
-            Method addAssetPathMethod = mPluginAssetManager.getClass()
-                    .getMethod("addAssetPath", String.class);
+            String assetMethod = "addAssetPath";
+            Method addAssetPathMethod = mPluginAssetManager.getClass().getMethod(assetMethod, String.class);
             addAssetPathMethod.invoke(mPluginAssetManager, dexPath);
             // 调用 Resources 构造函数生成实例
-            mPluginResources = new Resources(mPluginAssetManager,
-                    super.getResources().getDisplayMetrics(),
-                    super.getResources().getConfiguration());
-        } catch (InvocationTargetException e) {
-            e.printStackTrace();
-        } catch (NoSuchMethodException e) {
-            e.printStackTrace();
-        } catch (IllegalAccessException e) {
+            mPluginResources = new Resources(mPluginAssetManager, super.getResources().getDisplayMetrics(), super.getResources().getConfiguration());
+            Configuration configuration = new Configuration();
+            configuration.setToDefaults();
+            mPluginResources.updateConfiguration(configuration, mPluginResources.getDisplayMetrics());
+        } catch (InvocationTargetException | NoSuchMethodException | IllegalAccessException e) {
             e.printStackTrace();
         }
     }
@@ -158,7 +209,34 @@ public class PlugInFakerActivity extends Activity {
     @Override
     protected void onDestroy() {
         super.onDestroy();
+        if (PlugInModule.moduleContext != null) {
+            org.json.JSONObject ret = new org.json.JSONObject();
+            try {
+                // 通知前端页面已经销毁
+                ret.put("message", "onDestroy");
+                PlugInModule.moduleContext.success(ret, true);
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
+        }
+        instance = null;
         getMethod("onDestroy");
+        if (mAReceiver != null) {
+            unregisterReceiver(mAReceiver);
+            mAReceiver = null;
+        }
+    }
+
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+        getMethod("onBackPressed");
+    }
+
+    @Override
+    public void onConfigurationChanged(Configuration newConfig) {
+        super.onConfigurationChanged(newConfig);
+        getMethod("onConfigurationChanged", newConfig);
     }
 
     @Override
@@ -167,14 +245,76 @@ public class PlugInFakerActivity extends Activity {
         setIntent(intent);
     }
 
-    private Bundle bundle;
-
     public void handlerIntentData() {
         Intent intent = getIntent();
         if (intent == null) return;
-        bundle = intent.getExtras();
+        Bundle bundle = intent.getExtras();
         if (bundle != null) {
             activityName = bundle.getString("className");
+            fileName = bundle.getString("fileName");
+            ext = bundle.getString("ext");
         }
+    }
+
+    /**
+     * 初始化网络请求回调
+     */
+    private void initCallBackBroadCast() {
+        IntentFilter filter = new IntentFilter();
+        filter.addAction("PlugInFakerActivity");
+        mAReceiver = new BroadcastReceiver() {
+            @Override
+            public void onReceive(Context context, Intent intent) {
+                // 获取Intent数据
+                String requestAPI = intent.getStringExtra("requestAPI");
+                String intentExt = intent.getStringExtra("ext");
+                // 解析ext获取接口
+                JSONObject object = JSON.parseObject(ext);
+                String url = object.getString(requestAPI);
+                // 解析intentExt
+                JSONObject intentObject = JSON.parseObject(intentExt);
+                intentObject.put("userId", object.getString("userId"));
+                if (TextUtils.isEmpty(intentObject.getString("unionId"))) {
+                    intentObject.put("unionId", object.getString("unionId"));
+                }
+                intentObject.put("token", object.getString("token"));
+                intentObject.put("comId", object.getString("comId"));
+                boolean isMeeting = MeetingRequestHelper.handlerRequest(context, requestAPI, url, intentObject, data ->
+                        getMethod("hostCallBack", requestAPI, data));
+                if (!isMeeting) {
+                    if (requestAPI.equals("GET_USER_LIST_BY_DEPTID")) {
+                        // 解析intentExt
+                        object.put("keywords", intentObject.getString("keywords"));
+                        RequestUtils.getInstance().handlerNetRequestPostString(context, url, object, data ->
+                                        getMethod("hostCallBack", requestAPI, data));
+                    } else if (requestAPI.equals("CALL_AUDIO") || requestAPI.equals("CALL_VIDEO")) {
+                        // 判断是否是小米，如果是则申请权限
+                        if (BrandUtil.isBrandXiaoMi()) {
+                            if (!BrandUtil.hasPermissionBackRun(context)) {
+                                return;
+                            }
+                        }
+                        org.json.JSONObject ret = new org.json.JSONObject();
+                        try {
+                            ret.put("type", requestAPI);
+                            ret.put("callNickName", intentObject.getString("callNickName"));
+                            ret.put("calleeUserid", intentObject.getString("calleeUserid"));
+                            ret.put("toId", intentObject.getString("toId"));
+                            ret.put("telType", intentObject.getString("telType"));
+                            ret.put("phoneNumber", intentObject.getString("phoneNumber"));
+                            ret.put("creatorId", intentObject.getString("creatorId"));
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        }
+                        PlugInModule.moduleContext.success(ret, false);
+                    }
+                }
+            }
+        };
+        registerReceiver(mAReceiver, filter);
+    }
+
+    public static PlugInFakerActivity getInstance() {
+        return instance;
     }
 }

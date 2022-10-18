@@ -44,6 +44,9 @@ public class OfficeFileOpenModule extends UZModule {
         super(webView);
     }
 
+    /**
+     * 预览文件
+     */
     public void jsmethod_openFile(UZModuleContext uzModuleContext) {
         Context context = uzModuleContext.getContext();
         // 禁止连点
@@ -59,6 +62,7 @@ public class OfficeFileOpenModule extends UZModule {
         int width = uzModuleContext.optInt("w");
         int height = uzModuleContext.optInt("h");
         String fileName = uzModuleContext.optString("fileName");
+        boolean allowCache = uzModuleContext.optBoolean("allowCache");
         if (width == 0) {
             width = ViewGroup.LayoutParams.MATCH_PARENT;
         } else {
@@ -114,6 +118,7 @@ public class OfficeFileOpenModule extends UZModule {
         officeFileOpenView
                 .initAndAddTbsReaderView()
                 .setFilePath(uzModuleContext.optString("filePath"),fileName)
+                .setAllowCache(allowCache)
                 .initClickCallBack(new OfficeFileOpenView.ClickCallBack() {
                     @Override
                     public void cancel() {
@@ -125,7 +130,7 @@ public class OfficeFileOpenModule extends UZModule {
                         } catch (JSONException e) {
                             e.printStackTrace();
                         }
-                        uzModuleContext.success(ret, true);
+                        uzModuleContext.success(ret, false);
                     }
 
                     @Override
@@ -137,10 +142,20 @@ public class OfficeFileOpenModule extends UZModule {
                         } catch (JSONException e) {
                             e.printStackTrace();
                         }
-                        uzModuleContext.success(ret, true);
+                        uzModuleContext.success(ret, false);
                     }
-                })
-                .build();
+
+                    @Override
+                    public void abnormalUpload(String message) {
+                        JSONObject ret = new JSONObject();
+                        try {
+                            ret.put("abnormalUpload", message);
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        }
+                        uzModuleContext.success(ret,false);
+                    }
+                }).build();
         linearLayout.addView(officeFileOpenView);
         int xAxis = uzModuleContext.optInt("x");
         int yAxis = uzModuleContext.optInt("y");
@@ -178,13 +193,5 @@ public class OfficeFileOpenModule extends UZModule {
     public static int dip2px(Context context, float dpValue) {
         final float scale = context.getResources().getDisplayMetrics().density;
         return (int) (dpValue * scale + 0.5f);
-    }
-
-    /**
-     * 根据手机的分辨率从 px(像素) 的单位 转成为 dp
-     */
-    public static int px2dip(Context context, float pxValue) {
-        final float scale = context.getResources().getDisplayMetrics().density;
-        return (int) (pxValue / scale + 0.5f);
     }
 }

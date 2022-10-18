@@ -410,7 +410,6 @@ public class DownLoadUtils {
             File cacheFile = new File(context.getExternalCacheDir(), apk);
             if (cacheFile.exists()) {
                 cacheFile.delete();
-                Log.e("-main-", "删除");
             }
         }
     }

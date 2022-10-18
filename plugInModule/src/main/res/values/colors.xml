@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="status_color">#0076F6</color>
+    <color name="content_color">#FF797979</color>
+    <color name="view_line_color">#F6F6F6</color>
+    <color name="normal">#2c2c2c</color>
+    <color name="missed_call_color">#EE3B16</color>
+    <color name="progress_color">#1B7BD9</color>
+</resources>

@@ -6,7 +6,7 @@ android {
     compileSdkVersion 28
 
     defaultConfig {
-        minSdkVersion 15
+        minSdkVersion 19
         targetSdkVersion 28
 
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
@@ -30,5 +30,13 @@ android {
 dependencies {
     implementation fileTree(include: ['*.jar','*.aar'], dir: 'libs')
     compileOnly files('../app/libs/apiEngine v1.1.0.jar')
+    compileOnly files('../commonResource/libs/recyclerview-v7-26.0.0.aar')
     compileOnly 'com.android.support:support-v4:26.0.0'
+//    compileOnly files('../commonResource/libs/Bugly_aar_4.0.4.aar')
+    implementation 'com.ezviz.sdk:ezviz-sdk:4.15.1'
+    implementation 'com.squareup.okio:okio:1.14.0'
+    implementation 'com.squareup.okhttp3:okhttp:3.10.0'
+    compileOnly files('../commonResource/libs/design-26.0.0.aar')
+    compileOnly files('../commonResource/libs/appcompat-v7-26.0.0.aar')
+
 }

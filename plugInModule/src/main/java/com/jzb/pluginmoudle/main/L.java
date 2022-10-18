@@ -27,8 +27,6 @@ public class L {
 
     /**
      * 获取输出所在位置的信息className methodName lineNumber
-     *
-     * @param elements
      */
     private static void getDetail(StackTraceElement[] elements) {
         className = elements[1].getFileName().split("\\.")[0];
@@ -38,9 +36,6 @@ public class L {
 
     /**
      * 创建Log输出的基本信息
-     *
-     * @param log
-     * @return
      */
     private static String createLog(String log) {
         StringBuffer buffer = new StringBuffer();

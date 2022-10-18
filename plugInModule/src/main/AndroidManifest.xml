@@ -6,12 +6,19 @@
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
+    <uses-permission android:name="android.permission.CALL_PHONE" />
+    <uses-permission android:name="android.permission.VIBRATE" />
+
     <!-- 下载权限-->
     <uses-permission android:name="android.permission.DOWNLOAD_WITHOUT_NOTIFICATION" />
 
     <application>
         <!-- 用于承载APK Activity页面的方法-->
         <activity android:name=".main.PlugInFakerActivity"
-            android:screenOrientation="portrait"/>
+            android:configChanges="orientation|screenSize"
+            android:theme="@style/PluginAppTheme"/>
     </application>
 </manifest>

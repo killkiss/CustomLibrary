@@ -39,6 +39,8 @@ public class ProgressView extends View {
     private float mStepLength;
     //当前进度
     private int mProgress;
+    private final RectF mRect = new RectF();
+    private final RectF mTopDestRect = new RectF();
 
     public ProgressView(Context context) {
         this(context, null, 0);
@@ -73,7 +75,7 @@ public class ProgressView extends View {
     @Override
     protected void onDraw(Canvas canvas) {
         //首先绘制一条背景图
-        RectF mTopDestRect = new RectF(18 * mScreenScale, (int) (((float) mViewHeight) / 40 * 28),
+        mTopDestRect.set(18 * mScreenScale, (int) (((float) mViewHeight) / 40 * 28),
                 mProgressWidth + 17 * mScreenScale,
                 (int) (((float) mViewHeight) / 40 * 38));
         mPaint.setColor(Color.parseColor("#d9d9d9"));
@@ -93,7 +95,7 @@ public class ProgressView extends View {
         canvas.drawText(mProgress + "%", 18 * mScreenScale + mStepLength * mProgress, 14 * mScreenScale, mPaint);
 
         //绘制走过的进度条的背景
-        RectF mRect = new RectF(18 * mScreenScale, (int) (((float) mViewHeight) / 40 * 28), 18 * mScreenScale + mStepLength * mProgress + 10,
+        mRect.set(18 * mScreenScale, (int) (((float) mViewHeight) / 40 * 28), 18 * mScreenScale + mStepLength * mProgress + 10,
                 (int) (((float) mViewHeight) / 40 * 38));
         canvas.drawRoundRect(mRect, 100, 100, mPaint);
     }
@@ -137,9 +139,7 @@ public class ProgressView extends View {
         setMeasuredDimension(mViewWidth, mViewHeight);
         mProgressWidth = (int) ((float) mViewWidth / 280 * 244);
 //        mStepLength = (244 * mScreenScale - 17 * mScreenScale) / 100;
-        mStepLength = mProgressWidth / 100;
-
-        Log.e("w + h:", mViewWidth + "  " + mViewHeight + "   " + mStepLength + "  " + mProgressWidth);
+        mStepLength = mProgressWidth / 100f;
     }
 
     //获取屏幕分辨率比例
